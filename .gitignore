@@ -1,0 +1,17 @@
+# Godot 4+ specific ignores
+.godot/
+
+.vs/
+.idea/
+
+TestResults/
+x64/
+
+build/
+build_server/
+build.zip
+build_server.zip
+
+*.import
+*.dll
+*.dylib
