@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://hn0lp514a617"]
+
+[ext_resource type="Texture2D" uid="uid://cyidpg16acpil" path="res://assets/textures/heart_icon.png" id="1_jcspj"]
+
+[node name="HealthPointIcon" type="TextureRect"]
+texture = ExtResource("1_jcspj")
+expand_mode = 3

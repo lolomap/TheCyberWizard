@@ -1,6 +1,5 @@
 extends Area2D
 
-var speed = 50;
 var parent: Draggable;
 var is_touched = false;
 
@@ -11,10 +10,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if is_touched or parent.selected:
-		is_touched = true;
+	if is_touched:
 		return;
-	parent.position += transform.x * speed * delta;
+	if parent.selected:
+		is_touched = true;
+		parent.linear_velocity = Vector2.ZERO;
+		return;
+	#parent.position += (transform.x + transform.y)* speed * delta;
 	
 
 
