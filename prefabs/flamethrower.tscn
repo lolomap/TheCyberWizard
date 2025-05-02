@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvja8f7y3icj2"]
+
+[ext_resource type="SpriteFrames" uid="uid://c6fjjlxm2y1hi" path="res://assets/animations/flamethrower.tres" id="1_ff4rs"]
+[ext_resource type="Script" path="res://core/flamethrower.gd" id="1_sgt24"]
+[ext_resource type="PackedScene" uid="uid://q2ixsdcoggvx" path="res://prefabs/fireball.tscn" id="2_3jqbo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7c6j8"]
+size = Vector2(4, 20)
+
+[node name="Flamethrower" type="StaticBody2D"]
+script = ExtResource("1_sgt24")
+Fireball = ExtResource("2_3jqbo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 12)
+sprite_frames = ExtResource("1_ff4rs")
+autoplay = "default"
+frame = 4
+frame_progress = 0.0138283
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 9)
+shape = SubResource("RectangleShape2D_7c6j8")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(0, 24)
+rotation = 1.5708
+
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]

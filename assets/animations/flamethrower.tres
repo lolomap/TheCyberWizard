@@ -1,0 +1,81 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://c6fjjlxm2y1hi"]
+
+[ext_resource type="Texture2D" uid="uid://bnu0mpfbg7n6v" path="res://assets/flamethrower_attack_animation.png" id="1_xr0yf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0txjh"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(0, 0, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcms4"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(30, 0, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3ppj"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(60, 0, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wed2h"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(0, 25, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7pew"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(30, 25, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72buo"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(60, 25, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2omo"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(0, 50, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loi35"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(30, 50, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83ing"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(60, 50, 30, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jvn8"]
+atlas = ExtResource("1_xr0yf")
+region = Rect2(0, 75, 30, 25)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0txjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcms4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3ppj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wed2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7pew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72buo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2omo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loi35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83ing")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jvn8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
