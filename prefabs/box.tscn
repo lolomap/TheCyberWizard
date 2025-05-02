@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqj2f687vnja2"]
+
+[ext_resource type="PackedScene" uid="uid://byjg51mw2peml" path="res://prefabs/barrel.tscn" id="1_lh786"]
+[ext_resource type="Texture2D" uid="uid://b80gd58etn7vu" path="res://assets/textures/wood_box.png" id="2_j8i2f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x17cl"]
+size = Vector2(26, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_df0kf"]
+size = Vector2(27, 27)
+
+[node name="Box" instance=ExtResource("1_lh786")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_x17cl")
+
+[node name="CollisionShape2D" parent="InteractableArea" index="0"]
+position = Vector2(0.5, -11.5)
+shape = SubResource("RectangleShape2D_df0kf")
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(0, -12)
+texture = ExtResource("2_j8i2f")

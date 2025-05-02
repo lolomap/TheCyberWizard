@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://byjg51mw2peml"]
+
+[ext_resource type="Script" path="res://core/draggable.gd" id="1_5g6hc"]
+[ext_resource type="Texture2D" uid="uid://d0co34iab3jci" path="res://assets/textures/barrel.png" id="1_tdg7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3yj"]
+size = Vector2(12, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kboqe"]
+size = Vector2(12, 18)
+
+[node name="Barrel" type="RigidBody2D"]
+script = ExtResource("1_5g6hc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_oh3yj")
+
+[node name="InteractableArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_kboqe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_tdg7m")
+
+[connection signal="input_event" from="InteractableArea" to="." method="_on_interactable_area_input"]
