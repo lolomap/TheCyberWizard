@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://clemh6xrgjgfd"]
+[gd_scene load_steps=16 format=3 uid="uid://clemh6xrgjgfd"]
 
 [ext_resource type="Script" path="res://core/CastStream.gd" id="1_2c1nl"]
 [ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ca3n6givblqfb" path="res://prefabs/cyber_box.tscn" id="8_7r515"]
 [ext_resource type="PackedScene" uid="uid://byjg51mw2peml" path="res://prefabs/barrel.tscn" id="9_gg1bo"]
 [ext_resource type="PackedScene" uid="uid://byd4med0gfg83" path="res://prefabs/barrel_famaly.tscn" id="9_ud1ys"]
+[ext_resource type="PackedScene" uid="uid://cvja8f7y3icj2" path="res://prefabs/flamethrower.tscn" id="10_jr4ie"]
 [ext_resource type="PackedScene" uid="uid://bqj2f687vnja2" path="res://prefabs/box.tscn" id="10_k4ugk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3mji"]
@@ -76,6 +77,10 @@ position = Vector2(401, 227)
 
 [node name="BarrelFamaly" parent="Tilemap" instance=ExtResource("9_ud1ys")]
 position = Vector2(262, 259)
+
+[node name="Flamethrower" parent="Tilemap" instance=ExtResource("10_jr4ie")]
+position = Vector2(220, 177)
+rotation = -1.5708
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(310, 230)

@@ -1,4 +1,7 @@
 extends RigidBody2D;
+class_name Draggable;
+
+@export var draggable_type = 2;
 
 const drag_force = 0.5;
 const rotate_back_speed = 10;
@@ -20,7 +23,7 @@ func _physics_process(delta):
 
 
 func _on_interactable_area_input(viewport, event, shape_idx):
-	if G.Player.Manipulation == 0 && G.Player.Entity == 2 && Input.is_action_just_pressed("Click"):
+	if G.Player.Manipulation == 0 && G.Player.Entity == draggable_type && Input.is_action_just_pressed("Click"):
 		selected = true;
 		
 func _input(event):
