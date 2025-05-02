@@ -1,0 +1,74 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://dx2hg1d4sif2i"]
+
+[ext_resource type="Texture2D" uid="uid://cklbeyu2t3af4" path="res://assets/wizard_calm_animation.png" id="1_7jfh1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grmq7"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(0, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6xtl"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(32, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhgk2"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(64, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrl7p"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(0, 34, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brj37"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(32, 34, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icgdi"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(64, 34, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urlit"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(0, 68, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odind"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(32, 68, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tck36"]
+atlas = ExtResource("1_7jfh1")
+region = Rect2(64, 68, 32, 34)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grmq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6xtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhgk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrl7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brj37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icgdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urlit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odind")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tck36")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}]

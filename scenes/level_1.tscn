@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://clemh6xrgjgfd"]
+
+[ext_resource type="Script" path="res://core/CastStream.gd" id="1_2c1nl"]
+[ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
+[ext_resource type="Material" uid="uid://7v03g5qng0ep" path="res://assets/shaders/cast_stream.tres" id="2_8mhod"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_cmglu"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_ervm8"]
+[ext_resource type="Script" path="res://core/CameraPosition.gd" id="6_6hid5"]
+[ext_resource type="Script" path="res://core/Player.cs" id="7_12iga"]
+[ext_resource type="SpriteFrames" uid="uid://dx2hg1d4sif2i" path="res://assets/animations/player.tres" id="7_xlrs2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3mji"]
+size = Vector2(7, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ylo4"]
+size = Vector2(7, 23)
+
+[node name="Level1" type="Node2D"]
+
+[node name="Tilemap" type="TileMap" parent="."]
+tile_set = ExtResource("1_n6p54")
+cell_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(393223, 1, 0, 458759, 1, 0, 524295, 1, 0, 589831, 1, 0, 589832, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 589835, 65537, 0, 589836, 1, 0, 524300, 1, 0, 458764, 1, 0, 458763, 1, 0, 393227, 1, 0, 393226, 65537, 0, 327690, 1, 0, 327689, 1, 0, 393225, 1, 0, 393224, 65537, 0, 655367, 1, 0, 327687, 1, 0, 327688, 1, 0, 327691, 1, 0, 393228, 1, 0, 655372, 1, 0, 524299, 1, 0, 524297, 131073, 0, 524296, 1, 0, 589833, 1, 0, 458760, 1, 0, 589834, 1, 0, 327692, 1, 0, 458761, 1, 0, 458762, 1, 0, 524298, 1, 0, 327686, 131073, 1, 393222, 131073, 1, 458758, 131073, 1, 524294, 131073, 1, 589830, 131073, 1, 655366, 131073, 1, 327693, 65537, 1, 393229, 65537, 1, 458765, 65537, 1, 524301, 65537, 1, 589837, 65537, 1, 655373, 65537, 1, 262151, 1, 1, 262152, 196609, 0, 262153, 1, 1, 262154, 1, 1, 262155, 196609, 0, 262156, 1, 1, 720903, 196609, 1, 720904, 196609, 1, 720905, 196609, 1, 720906, 196609, 1, 720907, 196609, 1, 720908, 196609, 1, 720902, 262145, 1, 720909, 327681, 1, 262150, 393217, 1, 262157, 458753, 1)
+
+[node name="CastStream" type="Node2D" parent="."]
+position = Vector2(347, 244)
+script = ExtResource("1_2c1nl")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CastStream"]
+modulate = Color(0.74902, 0.262745, 0, 1)
+amount = 500
+process_material = ExtResource("2_8mhod")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(310, 230)
+zoom = Vector2(4, 4)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("4_cmglu")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+position = Vector2(310, 230)
+script = ExtResource("5_ervm8")
+priority = 0
+zoom = Vector2(4, 4)
+follow_mode = 1
+follow_target = NodePath("../CameraPosition")
+follow_parameters/damping = true
+follow_parameters/damping_value = 10.0
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+
+[node name="CameraPosition" type="Node2D" parent="."]
+position = Vector2(310, 230)
+script = ExtResource("6_6hid5")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(310, 230)
+motion_mode = 1
+script = ExtResource("7_12iga")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = ExtResource("7_xlrs2")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionMovement" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_q3mji")
+
+[node name="Trigger" type="Area2D" parent="Player"]
+
+[node name="TriggerShape" type="CollisionShape2D" parent="Player/Trigger"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_3ylo4")
