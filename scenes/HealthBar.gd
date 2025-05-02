@@ -18,7 +18,3 @@ func set_health(health):
 	for i in range(0, health):
 		var item: TextureRect = health_point_icon.instantiate();
 		add_child(item);
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

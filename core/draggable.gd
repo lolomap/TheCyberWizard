@@ -3,7 +3,7 @@ class_name Draggable;
 
 @export var draggable_type = 2;
 
-const drag_force = 0.5;
+const drag_force = 20;
 const rotate_back_speed = 10;
 
 var direction;
@@ -17,7 +17,7 @@ func _ready():
 
 func _physics_process(delta):
 	if selected:
-		apply_force(Input.get_last_mouse_velocity() * drag_force);
+		apply_force(Input.get_last_mouse_velocity() * drag_force * delta);
 		#global_position = lerp(global_position, get_global_mouse_position(), drag_speed * delta);
 		
 

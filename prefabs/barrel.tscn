@@ -26,4 +26,7 @@ shape = SubResource("RectangleShape2D_kboqe")
 position = Vector2(0, -8)
 texture = ExtResource("1_tdg7m")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 14.54
+
 [connection signal="input_event" from="InteractableArea" to="." method="_on_interactable_area_input"]

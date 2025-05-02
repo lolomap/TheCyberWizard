@@ -1,10 +1,11 @@
+using System;
 using Godot;
 
 namespace TheCyberWizard.core;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 60.0f;
+	public const float Speed = 300.0f;
 	
 	public int Health = 3;
 	public bool IsDead = false;
@@ -17,13 +18,15 @@ public partial class Player : CharacterBody2D
 		Fire,
 		Water,
 		Wind,
-		Mind
+		Mind,
+		None
 	}
 
-	public Comnbination Manipulation;
-	public Comnbination Entity;
+	public Comnbination Manipulation = Comnbination.None;
+	public Comnbination Entity = Comnbination.None;
 
 	[Export] public Node2D CastStream;
+	[Export] public AnimatedSprite2D Animation;
 
 	[Export] public CanvasItem CastStreamParticles;
 	[Export] public Color CastStreamFireColor;
@@ -38,16 +41,31 @@ public partial class Player : CharacterBody2D
 		G.Instance.Player = this;
 	}
 
+	public override void _Process(double delta)
+	{
+		if (Velocity.Length() > 0)
+		{
+			if (Velocity.Normalized() is {X: -1, Y: 0} || Velocity.Angle() >= Math.PI / 2 && Velocity.Angle() <= Math.PI || Velocity.Angle() <= -Math.PI / 2)
+				Animation.FlipH = false;
+			else Animation.FlipH = true;
+			Animation.Play("walk");
+		}
+		else
+		{
+			Animation.Play("idle");
+		}
+	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
+		Vector2 velocity;
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("movement_left", "movement_right", "movement_up", "movement_down");
 		if (direction != Vector2.Zero)
 		{
-			velocity = direction * Speed;
+			velocity = direction.Normalized() * Speed * 10 * (float) delta;
 		}
 		else
 		{
