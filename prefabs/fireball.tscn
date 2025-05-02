@@ -31,12 +31,12 @@ speed_scale = 5.0
 texture = ExtResource("2_bptbe")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 13
 collision_mask = 5
 input_pickable = false
 script = ExtResource("1_seqtg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource("CircleShape2D_vew43")
 
 [connection signal="input_event" from="." to="." method="_on_interactable_area_input"]

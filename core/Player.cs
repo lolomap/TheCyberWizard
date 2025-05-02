@@ -5,6 +5,9 @@ namespace TheCyberWizard.core;
 public partial class Player : CharacterBody2D
 {
 	public const float Speed = 60.0f;
+	
+	public int Health = 3;
+	public bool IsDead = false;
 
 	public enum Comnbination
 	{
@@ -19,6 +22,15 @@ public partial class Player : CharacterBody2D
 
 	public Comnbination Manipulation;
 	public Comnbination Entity;
+
+	[Export] public Node2D CastStream;
+
+	[Export] public CanvasItem CastStreamParticles;
+	[Export] public Color CastStreamFireColor;
+	[Export] public Color CastStreamWaterColor;
+
+	[Signal]
+	public delegate void UpdateHealthEventHandler(int health);
 
 	public override void _Ready()
 	{
@@ -54,14 +66,35 @@ public partial class Player : CharacterBody2D
 		if (@event.IsActionReleased("manipulate_control"))
 		{
 			Manipulation = Comnbination.Control;
+			CastStream.Visible = false;
 		}
 		else if (@event.IsActionReleased("manipulate_create"))
 		{
 			Manipulation = Comnbination.Create;
+			CastStream.Visible = true;
 		}
 		else if (@event is InputEventKey eventKey && eventKey.IsReleased() && eventKey.Keycode is >= Key.Key1 and <= Key.Key5)
 		{
 			Entity = (Comnbination) (eventKey.Keycode - Key.Key1 + (long) Comnbination.Object);
+			switch (Entity)
+			{
+				case Comnbination.Fire:
+					CastStreamParticles.Modulate = CastStreamFireColor;
+					break;
+				case Comnbination.Water:
+					CastStreamParticles.Modulate = CastStreamWaterColor;
+					break;
+			}
+		}
+	}
+
+	public void OnHit(Area2D area)
+	{
+		Health--;
+		EmitSignal(SignalName.UpdateHealth, Health);
+		if (Health < 1)
+		{
+			IsDead = true;
 		}
 	}
 }
