@@ -1,4 +1,5 @@
 extends Node
+class_name HealthComponent;
 
 @export var MaxHealth: float;
 @export var Health: float = -1;

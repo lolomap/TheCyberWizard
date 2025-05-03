@@ -34,7 +34,7 @@ preprocess = 0.5
 
 [node name="CastTrigger" type="Area2D" parent="CastStream"]
 collision_layer = 0
-collision_mask = 7
+collision_mask = 23
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="CastStream/CastTrigger"]
 polygon = PackedVector2Array(38, -6, 38, 7, 0, 0)
@@ -60,5 +60,6 @@ collision_mask = 8
 position = Vector2(-0.5, 11)
 shape = SubResource("RectangleShape2D_3ylo4")
 
+[connection signal="area_entered" from="CastStream/CastTrigger" to="." method="OnSprayArea"]
 [connection signal="body_entered" from="CastStream/CastTrigger" to="." method="OnSpray"]
 [connection signal="area_entered" from="Trigger" to="." method="OnHit"]

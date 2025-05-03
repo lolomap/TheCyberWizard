@@ -163,4 +163,38 @@ public partial class Player : CharacterBody2D
 			}
 		}
 	}
+	
+	public void OnSprayArea(Area2D area)
+	{
+		if (area.Name != "Hitbox") return;
+		Node2D body = area.GetParent<Node2D>();
+		
+		switch (Entity)
+		{
+			case Comnbination.Fire:
+			{
+				if (!body.HasNode("Health")) break;
+
+				Node bodyHealth = body.GetNode("Health");
+				if ((bool) bodyHealth.Get("IsFlamable"))
+				{
+					bodyHealth.Set("is_flaming", true);
+				}
+
+				break;
+			}
+			case Comnbination.Water:
+			{
+				if (!body.HasNode("Health")) break;
+
+				Node bodyHealth = body.GetNode("Health");
+				if ((bool) bodyHealth.Get("IsElectronic"))
+				{
+					bodyHealth.Set("is_flaming", true);
+				}
+				
+				break;
+			}
+		}
+	}
 }
