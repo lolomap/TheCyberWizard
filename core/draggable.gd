@@ -2,7 +2,7 @@ extends RigidBody2D;
 class_name Draggable;
 
 @export var draggable_type = 2;
-@export var kill_speed = 10;
+@export var kill_speed = 30;
 
 const drag_force = 20;
 const rotate_back_speed = 10;
@@ -10,12 +10,16 @@ const rotate_back_speed = 10;
 var direction;
 
 var selected = false;
+var health: HealthComponent;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	body_entered.connect(_on_collision);
 	if (has_node("InteractableArea")):
 		$InteractableArea.area_entered.connect(_on_collision_area);
+	if (has_node("Health")):
+		health = $Health;
+		health.Dead.connect(func(): queue_free());
 
 
 func _physics_process(delta):
@@ -44,5 +48,9 @@ func _on_collision(body: Node):
 func _on_collision_area(area: Area2D):
 	if linear_velocity.length() <= kill_speed: return;
 	if !(area.has_node("Health")): return;
+	
 	var h: HealthComponent = area.get_node("Health");
 	h.damage(linear_velocity.length() / kill_speed);
+	
+	if health != null:
+		health.damage(linear_velocity.length() / kill_speed / 1.5);

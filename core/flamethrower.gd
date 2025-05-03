@@ -1,5 +1,10 @@
-extends StaticBody2D
+extends Node2D
+class_name Flamethrower;
 
+
+@export var IsEnabled: bool = true;
+@export var ThrowerRoot: Node2D;
+@export var DefaultDirection: Vector2;
 @export var Fireball: PackedScene;
 @export var speed = 50;
 
@@ -11,8 +16,10 @@ func _ready():
 
 
 func _on_animated_sprite_2d_animation_looped():
+	if (!IsEnabled):
+		return;
 	var ball: RigidBody2D = Fireball.instantiate();
-	get_parent().add_child(ball);
+	ThrowerRoot.get_parent().add_child(ball);
 	ball.global_transform = Muzzle.global_transform;
-	var direction = Vector2.DOWN.rotated(rotation);
+	var direction = DefaultDirection.rotated(rotation);
 	ball.apply_impulse(direction * speed);

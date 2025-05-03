@@ -7,14 +7,14 @@ func _ready():
 	call_deferred('init');
 	
 func init():
-	G.Player.UpdateHealth.connect(set_health);
-	for i in range(0, G.Player.Health):
+	G.Player.Health.HealthChanged.connect(set_health);
+	for i in range(0, G.Player.Health.Health):
 		var item: TextureRect = health_point_icon.instantiate();
 		add_child(item);
 
-func set_health(health):
+func set_health():
 	for item in get_children():
 		item.queue_free();
-	for i in range(0, health):
+	for i in range(0, G.Player.Health.Health):
 		var item: TextureRect = health_point_icon.instantiate();
 		add_child(item);

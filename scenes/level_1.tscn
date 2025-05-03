@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://clemh6xrgjgfd"]
+[gd_scene load_steps=17 format=4 uid="uid://clemh6xrgjgfd"]
 
 [ext_resource type="Script" path="res://scenes/HealthBar.gd" id="1_ho2a7"]
 [ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bj6h7g0r7nwa0" path="res://prefabs/doors.tscn" id="10_hvrq0"]
 [ext_resource type="PackedScene" uid="uid://cvja8f7y3icj2" path="res://prefabs/flamethrower.tscn" id="10_jr4ie"]
 [ext_resource type="PackedScene" uid="uid://bqj2f687vnja2" path="res://prefabs/box.tscn" id="10_k4ugk"]
+[ext_resource type="PackedScene" uid="uid://bq2u6o6hqu0c6" path="res://prefabs/robot_flamethrower.tscn" id="12_fxclt"]
+[ext_resource type="PackedScene" uid="uid://cmahcrb6vbgtk" path="res://prefabs/robot.tscn" id="13_6a82g"]
 [ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="14_odyla"]
 
 [node name="Level1" type="Node2D"]
@@ -49,7 +51,6 @@ position = Vector2(309, 293)
 
 [node name="Doors" parent="Node2D" instance=ExtResource("10_hvrq0")]
 position = Vector2(307, 399)
-is_open = true
 
 [node name="Doors2" parent="Node2D" instance=ExtResource("10_hvrq0")]
 position = Vector2(308, 505)
@@ -59,17 +60,25 @@ is_open = true
 position = Vector2(221, 299)
 rotation = -1.309
 
-[node name="Dude" parent="Node2D" instance=ExtResource("14_odyla")]
-position = Vector2(402, 296)
-
-[node name="Dude2" parent="Node2D" instance=ExtResource("14_odyla")]
-position = Vector2(398, 219)
-
 [node name="CyberBox" parent="Node2D" instance=ExtResource("8_7r515")]
 position = Vector2(387, 252)
 
 [node name="Box" parent="Node2D" instance=ExtResource("10_k4ugk")]
 position = Vector2(360, 239)
+
+[node name="Dude" parent="Node2D" instance=ExtResource("14_odyla")]
+position = Vector2(307, 443)
+
+[node name="Dude3" parent="Node2D" instance=ExtResource("14_odyla")]
+position = Vector2(306, 409)
+
+[node name="RobotFlamethrower" parent="Node2D" instance=ExtResource("12_fxclt")]
+position = Vector2(307, 424)
+collision_layer = 1
+collision_mask = 1
+
+[node name="Robot" parent="Node2D" instance=ExtResource("13_6a82g")]
+position = Vector2(270, 347)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(310, 230)

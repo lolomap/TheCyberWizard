@@ -1,17 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://068ewntd7bb8"]
+[gd_scene load_steps=8 format=3 uid="uid://068ewntd7bb8"]
 
 [ext_resource type="Script" path="res://core/Player.cs" id="1_hc5m0"]
 [ext_resource type="Script" path="res://core/CastStream.gd" id="2_ghy4v"]
 [ext_resource type="Material" uid="uid://7v03g5qng0ep" path="res://assets/shaders/cast_stream.tres" id="3_l30tb"]
 [ext_resource type="SpriteFrames" uid="uid://dx2hg1d4sif2i" path="res://assets/animations/player.tres" id="4_j1jcr"]
+[ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="5_4mkgw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3mji"]
 size = Vector2(7, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ylo4"]
-size = Vector2(9, 8)
+size = Vector2(9, 21)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("CastStream", "Animation", "CastStreamParticles")]
+collision_layer = 129
+collision_mask = 129
 motion_mode = 1
 script = ExtResource("1_hc5m0")
 CastStream = NodePath("CastStream")
@@ -41,11 +44,11 @@ polygon = PackedVector2Array(38, -6, 38, 7, 0, 0)
 disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -14)
+position = Vector2(0, -20)
 sprite_frames = ExtResource("4_j1jcr")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
-frame_progress = 0.130369
+frame_progress = 0.0871609
 
 [node name="CollisionMovement" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -2)
@@ -57,9 +60,14 @@ collision_layer = 4
 collision_mask = 8
 
 [node name="TriggerShape" type="CollisionShape2D" parent="Trigger"]
-position = Vector2(-0.5, 11)
+position = Vector2(-0.5, 4.5)
 shape = SubResource("RectangleShape2D_3ylo4")
+
+[node name="Health" parent="." instance=ExtResource("5_4mkgw")]
+MaxHealth = 3.0
+IsFlamable = false
 
 [connection signal="area_entered" from="CastStream/CastTrigger" to="." method="OnSprayArea"]
 [connection signal="body_entered" from="CastStream/CastTrigger" to="." method="OnSpray"]
 [connection signal="area_entered" from="Trigger" to="." method="OnHit"]
+[connection signal="Dead" from="Health" to="." method="Dead"]

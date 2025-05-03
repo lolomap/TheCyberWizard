@@ -1,17 +1,36 @@
 extends CharacterBody2D
-
+class_name Dude;
 
 @export var SPEED = 300.0
+@export var ATACK_RANGE = 10;
+@export var ALLOW_DIRECT_ATACK = true;
 var direction;
+var is_attacking: bool;
 
 var anim: AnimatedSprite2D;
 var nav: NavigationAgent2D;
+var health: HealthComponent;
+var hitbox: Area2D;
+var target: Node2D;
 
 func _ready():
 	set_physics_process(false)
 	anim = $AnimatedSprite2D;
 	nav = $NavigationAgent2D;
+	health = $Health;
+	hitbox = $Hitbox;
+	target = G.Player;
+	
+	health.Dead.connect(func(): queue_free());
+	nav.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed);
+	hitbox.area_entered.connect(on_hit);
+	anim.animation_looped.connect(direct_attack);
 	call_deferred("actor_setup")
+	
+func direct_attack():
+	if ALLOW_DIRECT_ATACK and is_attacking:
+		target.get_node("Health").damage(1);
+		is_attacking = false;
 	
 func actor_setup():
 	await get_tree().physics_frame;
@@ -19,20 +38,32 @@ func actor_setup():
 	set_physics_process(true)
 
 func _process(delta: float) -> void:
+	if is_attacking: return;
+	
+	if global_position.distance_to(target.global_position) <= ATACK_RANGE:
+		is_attacking = true;
+		anim.play("attack");
+		return;
+	
 	if velocity.length() > 0:
 		anim.play("walk");
+	else:
+		anim.play("idle");
+		
 	if velocity.normalized().x < 0:
 		anim.flip_h = false;
 	else:
 		anim.flip_h = true;
 
 func _physics_process(delta):
-	nav.target_position = G.Player.global_position;
+	nav.target_position = target.global_position;
 	var v = global_position.direction_to(nav.get_next_path_position()).normalized() * SPEED * 50 * delta;
 	nav.velocity = v;
 	
 
-
+func on_hit(area: Area2D):
+	if health.IsFlamable:
+		health.is_flaming = true;
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	if nav.is_navigation_finished() == false:

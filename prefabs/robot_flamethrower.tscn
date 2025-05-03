@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq2u6o6hqu0c6"]
+
+[ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="1_i62mu"]
+[ext_resource type="SpriteFrames" uid="uid://c0h3it6mevat7" path="res://assets/animations/dude_flamethrower.tres" id="2_0glkx"]
+[ext_resource type="Script" path="res://core/flamethrower.gd" id="2_ly0gx"]
+[ext_resource type="PackedScene" uid="uid://q2ixsdcoggvx" path="res://prefabs/fireball.tscn" id="3_lhc6w"]
+[ext_resource type="Script" path="res://core/muzzle.gd" id="4_takcn"]
+[ext_resource type="Texture2D" uid="uid://chexb4p4bs4tm" path="res://assets/textures/flamethrower_drone_aim.png" id="5_litln"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1xff"]
+size = Vector2(26, 12)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_d4w72"]
+polygon = PackedVector2Array(-12, -12, -6, -14, -4, -22, 10, -22, 14, -12, 14, -4, 11, 0, -9, 0, -13, -5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mi63"]
+size = Vector2(26, 22.5)
+
+[node name="RobotFlamethrower" instance=ExtResource("1_i62mu")]
+collision_layer = 128
+collision_mask = 128
+ATACK_RANGE = 100
+ALLOW_DIRECT_ATACK = false
+
+[node name="Flamethrower" type="Node2D" parent="." index="0" node_paths=PackedStringArray("ThrowerRoot")]
+position = Vector2(0, -16)
+script = ExtResource("2_ly0gx")
+IsEnabled = false
+ThrowerRoot = NodePath("..")
+DefaultDirection = Vector2(1, 0)
+Fireball = ExtResource("3_lhc6w")
+
+[node name="Muzzle" type="Marker2D" parent="Flamethrower" index="0" node_paths=PackedStringArray("robot", "flamethrower")]
+position = Vector2(25, 0)
+rotation = 6.28318
+script = ExtResource("4_takcn")
+robot = NodePath("../..")
+flamethrower = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Flamethrower/Muzzle" index="0"]
+rotation = 1.5708
+texture = ExtResource("5_litln")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(-5, -11)
+sprite_frames = ExtResource("2_0glkx")
+frame = 4
+frame_progress = 0.467127
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(1, -6)
+shape = SubResource("RectangleShape2D_a1xff")
+
+[node name="NavigationAgent2D" parent="." index="3"]
+target_desired_distance = 75.0
+
+[node name="Health" parent="." index="4"]
+IsFlamable = false
+IsElectronic = true
+
+[node name="LightOccluder2D" parent="." index="5"]
+occluder = SubResource("OccluderPolygon2D_d4w72")
+
+[node name="Hitbox" parent="." index="6"]
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(1, -10.75)
+shape = SubResource("RectangleShape2D_8mi63")
+
+[connection signal="animation_looped" from="AnimatedSprite2D" to="Flamethrower" method="_on_animated_sprite_2d_animation_looped"]
