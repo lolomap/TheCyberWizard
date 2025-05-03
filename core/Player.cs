@@ -45,7 +45,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (Velocity.Length() > 0)
 		{
-			if (Velocity.Normalized() is {X: -1, Y: 0} || Velocity.Angle() >= Math.PI / 2 && Velocity.Angle() <= Math.PI || Velocity.Angle() <= -Math.PI / 2)
+			if (Velocity.Normalized().X < 0)
 				Animation.FlipH = false;
 			else Animation.FlipH = true;
 			Animation.Play("walk");

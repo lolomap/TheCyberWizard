@@ -14,3 +14,8 @@ shape = SubResource("RectangleShape2D_3o40m")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -14)
 texture = ExtResource("2_ftv6y")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 13.51
+vertices = PackedVector2Array(-12, -12, 11, -13, 14, 1, -13, 1)
+affect_navigation_mesh = true

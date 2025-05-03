@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://q2ixsdcoggvx"]
+[gd_scene load_steps=9 format=3 uid="uid://q2ixsdcoggvx"]
 
 [ext_resource type="Script" path="res://core/draggable.gd" id="1_e6y6t"]
 [ext_resource type="Material" uid="uid://byh2n27yt2xt3" path="res://assets/shaders/fire.tres" id="1_kr0b2"]
@@ -10,6 +10,15 @@ radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vew43"]
 radius = 4.12311
+
+[sub_resource type="Gradient" id="Gradient_13ksy"]
+offsets = PackedFloat32Array(0, 0.733766)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kqmcf"]
+gradient = SubResource("Gradient_13ksy")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Fireball" type="RigidBody2D"]
 collision_layer = 4
@@ -31,6 +40,7 @@ speed_scale = 5.0
 texture = ExtResource("2_bptbe")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 13
 collision_mask = 5
 input_pickable = false
@@ -38,6 +48,11 @@ script = ExtResource("1_seqtg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_vew43")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.34375, 0.34375)
+color = Color(1, 0.615686, 0, 1)
+texture = SubResource("GradientTexture2D_kqmcf")
 
 [connection signal="input_event" from="." to="." method="_on_interactable_area_input"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

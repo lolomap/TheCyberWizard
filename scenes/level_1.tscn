@@ -70,9 +70,9 @@ local_coords = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D/Player"]
 position = Vector2(0, -14)
 sprite_frames = ExtResource("7_xlrs2")
-animation = &"walk"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.767677
+frame_progress = 0.130369
 
 [node name="CollisionMovement" type="CollisionShape2D" parent="Node2D/Player"]
 position = Vector2(-0.5, -2)
