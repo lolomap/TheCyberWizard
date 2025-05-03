@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmahcrb6vbgtk"]
+
+[ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="1_h4a3u"]
+[ext_resource type="SpriteFrames" uid="uid://qlctm4g4f4yf" path="res://assets/animations/dude_robot.tres" id="2_mtuwe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_siulk"]
+size = Vector2(24, 12)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_efm2h"]
+polygon = PackedVector2Array(-7, -28, 10, -20, 11, -5, 7, 0, -8, 0, -12, -4, -13, -13, -21, -16, -7, -19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbylv"]
+size = Vector2(19, 26)
+
+[node name="Robot" instance=ExtResource("1_h4a3u")]
+ATACK_RANGE = 20
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(-2, -12)
+sprite_frames = ExtResource("2_mtuwe")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-1, -6)
+shape = SubResource("RectangleShape2D_siulk")
+
+[node name="Health" parent="." index="3"]
+IsFlamable = false
+IsElectronic = true
+
+[node name="LightOccluder2D" parent="." index="4"]
+occluder = SubResource("OccluderPolygon2D_efm2h")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0.5, -14)
+shape = SubResource("RectangleShape2D_bbylv")

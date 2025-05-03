@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="3_c1g2s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7xgq"]
-size = Vector2(13, 8)
+size = Vector2(14, 10)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5yctk"]
 polygon = PackedVector2Array(-7, -19, -7, 5, 8, 5, 8, -19)
@@ -14,16 +14,19 @@ polygon = PackedVector2Array(-7, -19, -7, 5, 8, 5, 8, -19)
 size = Vector2(14, 27)
 
 [node name="Dude" type="CharacterBody2D"]
+collision_layer = 129
+collision_mask = 129
 script = ExtResource("1_835jk")
 SPEED = 30.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -17)
 sprite_frames = ExtResource("1_56mv1")
-animation = &"walk"
+animation = &"attack"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_s7xgq")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -34,7 +37,6 @@ radius = 5.0
 [node name="Health" parent="." instance=ExtResource("3_c1g2s")]
 position = Vector2(0, -13)
 MaxHealth = 10.0
-IsElectronic = true
 FlamingPeriodSec = 1.0
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
@@ -42,10 +44,8 @@ occluder = SubResource("OccluderPolygon2D_5yctk")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, -9.5)
 shape = SubResource("RectangleShape2D_uubvd")
-
-[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

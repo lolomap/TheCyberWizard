@@ -6,9 +6,8 @@ namespace TheCyberWizard.core;
 public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
-	
-	public int Health = 3;
-	public bool IsDead = false;
+
+	public Node2D Health;
 
 	public enum Comnbination
 	{
@@ -39,6 +38,7 @@ public partial class Player : CharacterBody2D
 	{
 		base._Ready();
 		G.Instance.Player = this;
+		Health = GetNode<Node2D>("Health");
 	}
 
 	public override void _Process(double delta)
@@ -123,14 +123,14 @@ public partial class Player : CharacterBody2D
 		CastStream.GetNode<CollisionPolygon2D>("CastTrigger/CollisionShape2D").Disabled = !value;
 	}
 
+	public void Dead()
+	{
+		GetTree().ReloadCurrentScene();
+	}
+
 	public void OnHit(Area2D area)
 	{
-		Health--;
-		EmitSignal(SignalName.UpdateHealth, Health);
-		if (Health < 1)
-		{
-			IsDead = true;
-		}
+		Health.Call("damage", 1);
 	}
 
 	public void OnSpray(Node2D body)

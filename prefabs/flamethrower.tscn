@@ -7,8 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7c6j8"]
 size = Vector2(4, 20)
 
-[node name="Flamethrower" type="StaticBody2D"]
+[node name="Flamethrower" type="StaticBody2D" node_paths=PackedStringArray("ThrowerRoot")]
 script = ExtResource("1_sgt24")
+ThrowerRoot = NodePath(".")
+DefaultDirection = Vector2(0, 1)
 Fireball = ExtResource("2_3jqbo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

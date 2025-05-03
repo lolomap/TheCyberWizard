@@ -11,6 +11,7 @@ class_name HealthComponent;
 @export var IsDead: bool;
 
 var fire_vfx: GPUParticles2D;
+var parent: Node2D;
 
 var __is_flaming: bool;
 var is_flaming: bool = false : set = setFlaming, get = getFlaming;
@@ -27,23 +28,31 @@ func getFlaming():
 	return __is_flaming;
 
 signal Dead;
+signal HealthChanged();
 
 var flaming_timer: Timer;
+var tint_timer: Timer;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	parent = get_parent();
 	fire_vfx = $FlameParticles;
 	if (IsElectronic):
 		fire_vfx.modulate = ElectronicColor;
 	else:
 		fire_vfx.modulate = FlamingColor;
 	
-	Dead.connect(die);
-	
 	flaming_timer = Timer.new();
 	flaming_timer.wait_time = FlamingPeriodSec;
 	flaming_timer.timeout.connect(func(): damage(1));
 	add_child(flaming_timer);
+	
+	tint_timer = Timer.new();
+	tint_timer.wait_time = 0.5;
+	tint_timer.timeout.connect(func(): parent.modulate = Color.WHITE);
+	tint_timer.one_shot = true;
+	add_child(tint_timer);
+	
 	if Health < 0:
 		Health = MaxHealth;
 
@@ -54,10 +63,15 @@ func _process(delta: float) -> void:
 
 func damage(value: float):
 	Health -= value;
+	HealthChanged.emit();
+	
+	parent.modulate = Color.FIREBRICK;
+	tint_timer.start();
+	
 	if (Health <= 0):
 		is_flaming = false;
 		Health = 0;
-		Dead.emit();
+		call_deferred("on_dead");
 
-func die():
-	get_parent().queue_free();
+func on_dead():
+	Dead.emit();
