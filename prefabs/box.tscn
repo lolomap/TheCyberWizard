@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqj2f687vnja2"]
+[gd_scene load_steps=6 format=3 uid="uid://bqj2f687vnja2"]
 
 [ext_resource type="PackedScene" uid="uid://byjg51mw2peml" path="res://prefabs/barrel.tscn" id="1_lh786"]
 [ext_resource type="Texture2D" uid="uid://b80gd58etn7vu" path="res://assets/textures/wood_box.png" id="2_j8i2f"]
+[ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="3_a628m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x17cl"]
 size = Vector2(26, 10)
@@ -22,3 +23,7 @@ shape = SubResource("RectangleShape2D_df0kf")
 [node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -12)
 texture = ExtResource("2_j8i2f")
+
+[node name="Health" parent="." index="4" instance=ExtResource("3_a628m")]
+position = Vector2(0, -8)
+FlamingPeriodSec = 1.0

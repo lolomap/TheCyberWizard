@@ -1,28 +1,18 @@
-[gd_scene load_steps=20 format=4 uid="uid://clemh6xrgjgfd"]
+[gd_scene load_steps=14 format=4 uid="uid://clemh6xrgjgfd"]
 
-[ext_resource type="Script" path="res://core/CastStream.gd" id="1_2c1nl"]
 [ext_resource type="Script" path="res://scenes/HealthBar.gd" id="1_ho2a7"]
 [ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
-[ext_resource type="Material" uid="uid://7v03g5qng0ep" path="res://assets/shaders/cast_stream.tres" id="2_8mhod"]
 [ext_resource type="PackedScene" uid="uid://hn0lp514a617" path="res://prefabs/health_point_icon.tscn" id="2_e8itl"]
+[ext_resource type="PackedScene" uid="uid://068ewntd7bb8" path="res://prefabs/player.tscn" id="4_bk1f7"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_cmglu"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_ervm8"]
 [ext_resource type="Script" path="res://core/CameraPosition.gd" id="6_6hid5"]
-[ext_resource type="Script" path="res://core/Player.cs" id="7_12iga"]
-[ext_resource type="SpriteFrames" uid="uid://dx2hg1d4sif2i" path="res://assets/animations/player.tres" id="7_xlrs2"]
 [ext_resource type="PackedScene" uid="uid://ca3n6givblqfb" path="res://prefabs/cyber_box.tscn" id="8_7r515"]
 [ext_resource type="PackedScene" uid="uid://byjg51mw2peml" path="res://prefabs/barrel.tscn" id="9_gg1bo"]
 [ext_resource type="PackedScene" uid="uid://byd4med0gfg83" path="res://prefabs/barrel_famaly.tscn" id="9_ud1ys"]
 [ext_resource type="PackedScene" uid="uid://bj6h7g0r7nwa0" path="res://prefabs/doors.tscn" id="10_hvrq0"]
 [ext_resource type="PackedScene" uid="uid://cvja8f7y3icj2" path="res://prefabs/flamethrower.tscn" id="10_jr4ie"]
 [ext_resource type="PackedScene" uid="uid://bqj2f687vnja2" path="res://prefabs/box.tscn" id="10_k4ugk"]
-[ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="14_odyla"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3mji"]
-size = Vector2(7, 6)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ylo4"]
-size = Vector2(9, 8)
 
 [node name="Level1" type="Node2D"]
 
@@ -44,54 +34,11 @@ rendering_quadrant_size = 32
 [node name="Node2D" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Player" type="CharacterBody2D" parent="Node2D" node_paths=PackedStringArray("CastStream", "Animation", "CastStreamParticles")]
-position = Vector2(329, 250)
-motion_mode = 1
-script = ExtResource("7_12iga")
-CastStream = NodePath("CastStream")
-Animation = NodePath("AnimatedSprite2D")
-CastStreamParticles = NodePath("CastStream/GPUParticles2D")
-CastStreamFireColor = Color(0.74902, 0.262745, 0, 1)
-CastStreamWaterColor = Color(0.333333, 0.415686, 0.752941, 1)
-
-[node name="CastStream" type="Node2D" parent="Node2D/Player"]
-visible = false
-position = Vector2(0, -14)
-script = ExtResource("1_2c1nl")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Node2D/Player/CastStream"]
-modulate = Color(0.333333, 0.415686, 0.752941, 1)
-amount = 500
-process_material = ExtResource("2_8mhod")
-lifetime = 0.5
-preprocess = 0.5
-local_coords = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D/Player"]
-position = Vector2(0, -14)
-sprite_frames = ExtResource("7_xlrs2")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.130369
-
-[node name="CollisionMovement" type="CollisionShape2D" parent="Node2D/Player"]
-position = Vector2(-0.5, -2)
-shape = SubResource("RectangleShape2D_q3mji")
-
-[node name="Trigger" type="Area2D" parent="Node2D/Player"]
-position = Vector2(0, -14)
-collision_layer = 4
-collision_mask = 8
-
-[node name="TriggerShape" type="CollisionShape2D" parent="Node2D/Player/Trigger"]
-position = Vector2(-0.5, 11)
-shape = SubResource("RectangleShape2D_3ylo4")
+[node name="Player" parent="Node2D" instance=ExtResource("4_bk1f7")]
+position = Vector2(313, 258)
 
 [node name="Barrel" parent="Node2D" instance=ExtResource("9_gg1bo")]
 position = Vector2(362, 281)
-
-[node name="Dude" parent="Node2D" instance=ExtResource("14_odyla")]
-position = Vector2(408, 310)
 
 [node name="Box" parent="Node2D" instance=ExtResource("10_k4ugk")]
 position = Vector2(374, 243)
@@ -114,7 +61,7 @@ position = Vector2(308, 505)
 is_open = true
 
 [node name="Flamethrower2" parent="Node2D" instance=ExtResource("10_jr4ie")]
-position = Vector2(226, 227)
+position = Vector2(221, 299)
 rotation = -1.309
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -143,5 +90,3 @@ script = ExtResource("6_6hid5")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.858824, 0.929412, 1, 1)
-
-[connection signal="area_entered" from="Node2D/Player/Trigger" to="Node2D/Player" method="OnHit"]
