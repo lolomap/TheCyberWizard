@@ -38,6 +38,10 @@ func actor_setup():
 	set_physics_process(true)
 
 func _process(delta: float) -> void:
+	var tile = G.Tilemap.get_cell_atlas_coords(G.Tilemap.local_to_map(position));
+	if tile.x == 0 and tile.y == 2:
+		health.damage(health.MaxHealth);
+	
 	if is_attacking: return;
 	
 	if global_position.distance_to(target.global_position) <= ATACK_RANGE:
