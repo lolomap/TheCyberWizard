@@ -22,7 +22,7 @@ position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_oh3yj")
 
 [node name="InteractableArea" type="Area2D" parent="."]
-collision_mask = 17
+collision_mask = 25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
 position = Vector2(0, -8)

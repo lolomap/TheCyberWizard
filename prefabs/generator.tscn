@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://olq8yv3hugq5"]
+[gd_scene load_steps=8 format=3 uid="uid://olq8yv3hugq5"]
 
+[ext_resource type="Script" path="res://core/generator.gd" id="1_4hsva"]
 [ext_resource type="Texture2D" uid="uid://d0co34iab3jci" path="res://assets/textures/barrel.png" id="1_mdsfq"]
 [ext_resource type="SpriteFrames" uid="uid://ocondqietnq4" path="res://assets/animations/generator.tres" id="2_b4aas"]
+[ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="3_x5yvx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g7nd"]
 size = Vector2(19, 17)
@@ -9,9 +11,13 @@ size = Vector2(19, 17)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_82pjy"]
 polygon = PackedVector2Array(-9, -20, 11, -20, 11, 0, -9, 0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_077ey"]
+size = Vector2(19, 35)
+
 [node name="Generator" type="RigidBody2D"]
 contact_monitor = true
 max_contacts_reported = 10
+script = ExtResource("1_4hsva")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -8.5)
@@ -25,8 +31,8 @@ texture = ExtResource("1_mdsfq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -16)
 sprite_frames = ExtResource("2_b4aas")
-frame = 5
-frame_progress = 0.968768
+autoplay = "default"
+frame_progress = 0.178908
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 position = Vector2(0, -4)
@@ -34,3 +40,16 @@ radius = 14.54
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_82pjy")
+
+[node name="Health" parent="." instance=ExtResource("3_x5yvx")]
+MaxHealth = 3.0
+IsElectronic = true
+FlamingPeriodSec = 0.75
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -17.5)
+shape = SubResource("RectangleShape2D_077ey")
