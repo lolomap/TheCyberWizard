@@ -21,8 +21,20 @@ func actor_setup():
 func _process(delta: float) -> void:
 	if velocity.length() > 0:
 		anim.play("walk");
+	if velocity.normalized().x < 0:
+		anim.flip_h = false;
+	else:
+		anim.flip_h = true;
 
 func _physics_process(delta):
 	nav.target_position = G.Player.global_position;
-	velocity = global_position.direction_to(nav.get_next_path_position()).normalized() * SPEED * 50 * delta;
-	move_and_slide()
+	var v = global_position.direction_to(nav.get_next_path_position()).normalized() * SPEED * 50 * delta;
+	nav.velocity = v;
+	
+
+
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
+	if nav.is_navigation_finished() == false:
+		velocity = safe_velocity;
+		move_and_slide()

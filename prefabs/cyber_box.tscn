@@ -1,18 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca3n6givblqfb"]
+[gd_scene load_steps=6 format=3 uid="uid://ca3n6givblqfb"]
 
 [ext_resource type="PackedScene" uid="uid://byjg51mw2peml" path="res://prefabs/barrel.tscn" id="1_ios7a"]
 [ext_resource type="Texture2D" uid="uid://jkct1647jp1r" path="res://assets/textures/cyber_box.png" id="2_gl805"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bicyl"]
-size = Vector2(24, 9)
+size = Vector2(24, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36504"]
 size = Vector2(25, 29)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rq48g"]
+polygon = PackedVector2Array(-12, -16, 12, -16, 12, 1, -12, 1)
+
 [node name="CyberBox" instance=ExtResource("1_ios7a")]
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, -4.5)
+position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_bicyl")
 
 [node name="CollisionShape2D" parent="InteractableArea" index="0"]
@@ -22,3 +25,6 @@ shape = SubResource("RectangleShape2D_36504")
 [node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -13)
 texture = ExtResource("2_gl805")
+
+[node name="LightOccluder2D" parent="." index="4"]
+occluder = SubResource("OccluderPolygon2D_rq48g")

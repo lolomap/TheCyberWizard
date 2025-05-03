@@ -45,7 +45,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (Velocity.Length() > 0)
 		{
-			if (Velocity.Normalized() is {X: -1, Y: 0} || Velocity.Angle() >= Math.PI / 2 && Velocity.Angle() <= Math.PI || Velocity.Angle() <= -Math.PI / 2)
+			if (Velocity.Normalized().X < 0)
 				Animation.FlipH = false;
 			else Animation.FlipH = true;
 			Animation.Play("walk");
@@ -84,26 +84,43 @@ public partial class Player : CharacterBody2D
 		if (@event.IsActionReleased("manipulate_control"))
 		{
 			Manipulation = Comnbination.Control;
-			CastStream.Visible = false;
+			ToggleStream(false);
+			
 		}
 		else if (@event.IsActionReleased("manipulate_create"))
 		{
 			Manipulation = Comnbination.Create;
-			CastStream.Visible = true;
 		}
 		else if (@event is InputEventKey eventKey && eventKey.IsReleased() && eventKey.Keycode is >= Key.Key1 and <= Key.Key5)
 		{
 			Entity = (Comnbination) (eventKey.Keycode - Key.Key1 + (long) Comnbination.Object);
+			
+			if (Manipulation != Comnbination.Create) return;
 			switch (Entity)
 			{
 				case Comnbination.Fire:
 					CastStreamParticles.Modulate = CastStreamFireColor;
+					ToggleStream(true);
 					break;
 				case Comnbination.Water:
 					CastStreamParticles.Modulate = CastStreamWaterColor;
+					ToggleStream(true);
+					break;
+				case Comnbination.Wind:
+					CastStreamParticles.Modulate = Colors.Gray;
+					ToggleStream(true);
+					break;
+				default:
+					ToggleStream(false);
 					break;
 			}
 		}
+	}
+
+	private void ToggleStream(bool value)
+	{
+		CastStream.Visible = value;
+		CastStream.GetNode<CollisionPolygon2D>("CastTrigger/CollisionShape2D").Disabled = !value;
 	}
 
 	public void OnHit(Area2D area)
@@ -113,6 +130,71 @@ public partial class Player : CharacterBody2D
 		if (Health < 1)
 		{
 			IsDead = true;
+		}
+	}
+
+	public void OnSpray(Node2D body)
+	{
+		switch (Entity)
+		{
+			case Comnbination.Fire:
+			{
+				if (!body.HasNode("Health")) break;
+
+				Node bodyHealth = body.GetNode("Health");
+				if ((bool) bodyHealth.Get("IsFlamable"))
+				{
+					bodyHealth.Set("is_flaming", true);
+				}
+
+				break;
+			}
+			case Comnbination.Water:
+			{
+				if (!body.HasNode("Health")) break;
+
+				Node bodyHealth = body.GetNode("Health");
+				if ((bool) bodyHealth.Get("IsElectronic"))
+				{
+					bodyHealth.Set("is_flaming", true);
+				}
+				
+				break;
+			}
+		}
+	}
+	
+	public void OnSprayArea(Area2D area)
+	{
+		if (area.Name != "Hitbox") return;
+		Node2D body = area.GetParent<Node2D>();
+		
+		switch (Entity)
+		{
+			case Comnbination.Fire:
+			{
+				if (!body.HasNode("Health")) break;
+
+				Node bodyHealth = body.GetNode("Health");
+				if ((bool) bodyHealth.Get("IsFlamable"))
+				{
+					bodyHealth.Set("is_flaming", true);
+				}
+
+				break;
+			}
+			case Comnbination.Water:
+			{
+				if (!body.HasNode("Health")) break;
+
+				Node bodyHealth = body.GetNode("Health");
+				if ((bool) bodyHealth.Get("IsElectronic"))
+				{
+					bodyHealth.Set("is_flaming", true);
+				}
+				
+				break;
+			}
 		}
 	}
 }

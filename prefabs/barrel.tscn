@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://byjg51mw2peml"]
+[gd_scene load_steps=6 format=3 uid="uid://byjg51mw2peml"]
 
 [ext_resource type="Script" path="res://core/draggable.gd" id="1_5g6hc"]
 [ext_resource type="Texture2D" uid="uid://d0co34iab3jci" path="res://assets/textures/barrel.png" id="1_tdg7m"]
@@ -9,7 +9,12 @@ size = Vector2(12, 5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kboqe"]
 size = Vector2(12, 18)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ksaqb"]
+polygon = PackedVector2Array(-6, -6, -6, 1, 6, 1, 6, -6)
+
 [node name="Barrel" type="RigidBody2D"]
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_5g6hc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -17,6 +22,7 @@ position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_oh3yj")
 
 [node name="InteractableArea" type="Area2D" parent="."]
+collision_mask = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
 position = Vector2(0, -8)
@@ -27,6 +33,10 @@ position = Vector2(0, -8)
 texture = ExtResource("1_tdg7m")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -4)
 radius = 14.54
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ksaqb")
 
 [connection signal="input_event" from="InteractableArea" to="." method="_on_interactable_area_input"]
