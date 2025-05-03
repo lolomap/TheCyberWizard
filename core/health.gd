@@ -3,6 +3,9 @@ extends Node
 @export var MaxHealth: float;
 @export var Health: float = -1;
 @export var IsFlamable: bool;
+@export var IsElectronic: bool;
+@export var FlamingColor: Color;
+@export var ElectronicColor: Color;
 @export var FlamingPeriodSec: float = 0.5;
 @export var IsDead: bool;
 
@@ -29,6 +32,11 @@ var flaming_timer: Timer;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	fire_vfx = $FlameParticles;
+	if (IsElectronic):
+		fire_vfx.modulate = ElectronicColor;
+	else:
+		fire_vfx.modulate = FlamingColor;
+	
 	Dead.connect(die);
 	
 	flaming_timer = Timer.new();

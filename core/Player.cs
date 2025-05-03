@@ -94,6 +94,8 @@ public partial class Player : CharacterBody2D
 		else if (@event is InputEventKey eventKey && eventKey.IsReleased() && eventKey.Keycode is >= Key.Key1 and <= Key.Key5)
 		{
 			Entity = (Comnbination) (eventKey.Keycode - Key.Key1 + (long) Comnbination.Object);
+			
+			if (Manipulation != Comnbination.Create) return;
 			switch (Entity)
 			{
 				case Comnbination.Fire:
@@ -133,17 +135,32 @@ public partial class Player : CharacterBody2D
 
 	public void OnSpray(Node2D body)
 	{
-		if (Entity == Comnbination.Fire && !body.HasNode("Health")) return;
-
 		switch (Entity)
 		{
 			case Comnbination.Fire:
+			{
+				if (!body.HasNode("Health")) break;
+
 				Node bodyHealth = body.GetNode("Health");
 				if ((bool) bodyHealth.Get("IsFlamable"))
 				{
 					bodyHealth.Set("is_flaming", true);
 				}
+
 				break;
+			}
+			case Comnbination.Water:
+			{
+				if (!body.HasNode("Health")) break;
+
+				Node bodyHealth = body.GetNode("Health");
+				if ((bool) bodyHealth.Get("IsElectronic"))
+				{
+					bodyHealth.Set("is_flaming", true);
+				}
+				
+				break;
+			}
 		}
 	}
 }

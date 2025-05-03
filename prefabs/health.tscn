@@ -7,6 +7,8 @@
 script = ExtResource("1_emplx")
 MaxHealth = 5.0
 IsFlamable = true
+FlamingColor = Color(0.968627, 0.258824, 0, 1)
+ElectronicColor = Color(1, 1, 1, 1)
 
 [node name="FlameParticles" type="GPUParticles2D" parent="."]
 visible = false
