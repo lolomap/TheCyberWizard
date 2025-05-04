@@ -1,20 +1,21 @@
-extends RigidBody2D
+extends StaticBody2D
 
 var health: HealthComponent;
 var trigger: Area2D;
+var killzone: Area2D;
 @export var does_enable: bool;
-@export var connection: Node2D;
 
 signal door_connection(value)
+signal generator_connection(value)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	health = $Health;
 	trigger = $Area2D;
-	if connection != null and connection.has_signal("generator_connection"):
-		connection.generator_connection.connect(_on_disable)
+	killzone = $KillZone;
 	health.Dead.connect(_on_dead);
 	trigger.area_entered.connect(on_hit);
+	killzone.area_entered.connect(on_spray);
 	
 	call_deferred("_on_start");
 	
@@ -22,16 +23,13 @@ func _on_start():
 	door_connection.emit(!does_enable);
 
 func _on_dead():
-	_on_disable(false);
+	door_connection.emit(does_enable);
+	generator_connection.emit(false);
 	queue_free()
-	
-func _on_disable(value):
-	if !value:
-		door_connection.emit(does_enable);
-		$AnimatedSprite2D.stop();
-	else:
-		door_connection.emit(!does_enable);
-		$AnimatedSprite2D.play();
 
 func on_hit(area: Area2D):
 	health.is_flaming = true;
+	
+func on_spray(area: Area2D):
+	if area.get_parent().visible and G.Player.Entity == 4:
+		G.Player.Health.damage(G.Player.Health.MaxHealth);

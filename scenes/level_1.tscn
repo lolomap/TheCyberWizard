@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://clemh6xrgjgfd"]
+[gd_scene load_steps=18 format=4 uid="uid://clemh6xrgjgfd"]
 
 [ext_resource type="Script" path="res://scenes/HealthBar.gd" id="1_ho2a7"]
 [ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://byd4med0gfg83" path="res://prefabs/barrel_famaly.tscn" id="9_ud1ys"]
 [ext_resource type="PackedScene" uid="uid://bj6h7g0r7nwa0" path="res://prefabs/doors.tscn" id="10_hvrq0"]
 [ext_resource type="PackedScene" uid="uid://cvja8f7y3icj2" path="res://prefabs/flamethrower.tscn" id="10_jr4ie"]
+[ext_resource type="PackedScene" uid="uid://bfq2gujq5826w" path="res://prefabs/tesla.tscn" id="14_jh8r3"]
 [ext_resource type="PackedScene" uid="uid://olq8yv3hugq5" path="res://prefabs/generator.tscn" id="14_lcqsg"]
 [ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="14_odyla"]
 [ext_resource type="PackedScene" uid="uid://wuffmoeufly6" path="res://prefabs/button.tscn" id="15_yvafa"]
@@ -67,9 +68,10 @@ connection = NodePath("../Button")
 position = Vector2(221, 299)
 rotation = -1.309
 
-[node name="Generator" parent="Node2D" instance=ExtResource("14_lcqsg")]
+[node name="Generator" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("14_lcqsg")]
 position = Vector2(341, 345)
 does_enable = true
+connection = NodePath("../Tesla")
 
 [node name="Doors" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("10_hvrq0")]
 position = Vector2(303, 398)
@@ -83,6 +85,9 @@ position = Vector2(401, 323)
 
 [node name="Dude" parent="Node2D" instance=ExtResource("14_odyla")]
 position = Vector2(299, 243)
+
+[node name="Tesla" parent="Node2D" instance=ExtResource("14_jh8r3")]
+position = Vector2(370, 299)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(310, 230)

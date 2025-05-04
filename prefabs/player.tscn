@@ -37,7 +37,7 @@ lifetime = 0.5
 preprocess = 0.5
 
 [node name="CastTrigger" type="Area2D" parent="CastStream"]
-collision_layer = 0
+collision_layer = 256
 collision_mask = 23
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="CastStream/CastTrigger"]

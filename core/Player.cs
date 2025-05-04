@@ -93,7 +93,7 @@ public partial class Player : CharacterBody2D
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("movement_left", "movement_right", "movement_up", "movement_down");
-		if (direction != Vector2.Zero)
+		if (direction != Vector2.Zero && IsStaminaRestoring)
 		{
 			velocity = direction.Normalized() * Speed * 10 * (float) delta;
 		}

@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://bfq2gujq5826w"]
+
+[ext_resource type="Texture2D" uid="uid://biaubu7a16br2" path="res://assets/textures/tesla.png" id="1_rvgjq"]
+[ext_resource type="Script" path="res://core/tesla.gd" id="1_xqvr8"]
+[ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="3_7elkb"]
+[ext_resource type="Material" uid="uid://dnekinq3wmntp" path="res://assets/shaders/lightnings.tres" id="3_kmvt3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jxx5i"]
+size = Vector2(20, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2pqjr"]
+radius = 60.0083
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqsdr"]
+size = Vector2(10, 29)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ynv30"]
+polygon = PackedVector2Array(-2, 5, -10, 1, -10, -8, -5, -8, -4, -25, 3, -25, 4, -9, 9, -9, 9, 4, 1, 5)
+
+[node name="Tesla" type="StaticBody2D"]
+script = ExtResource("1_xqvr8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_jxx5i")
+
+[node name="KillZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+shape = SubResource("CircleShape2D_2pqjr")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10.5)
+shape = SubResource("RectangleShape2D_sqsdr")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 18.02
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ynv30")
+
+[node name="Health" parent="." instance=ExtResource("3_7elkb")]
+MaxHealth = 10.0
+FlamingPeriodSec = 1.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.844708, 0.6175, 0.95, 1)
+position = Vector2(0, -15)
+scale = Vector2(0.65983, 0.669736)
+process_material = ExtResource("3_kmvt3")
+lifetime = 0.7
+trail_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -11)
+texture = ExtResource("1_rvgjq")
