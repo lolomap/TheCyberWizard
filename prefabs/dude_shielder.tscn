@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://iush81i6d56l"]
+
+[ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="1_rwpi3"]
+[ext_resource type="SpriteFrames" uid="uid://dfebdtgiedkkg" path="res://assets/animations/dude_shielder.tres" id="2_h5trl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4n8f"]
+size = Vector2(12, 14)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3d0yf"]
+polygon = PackedVector2Array(-8, -24, -4, -25, -4, -25, -5, -28, -3, -32, 1, -32, 3, -30, 3, -25, 5, -23, 4, -11, 3, -1, -6, -2, -8, -7, -8, -12, -9, -13, -9, -21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5138"]
+size = Vector2(12, 24)
+
+[node name="DudeShielder" instance=ExtResource("1_rwpi3")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("2_h5trl")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-2, -7)
+shape = SubResource("RectangleShape2D_e4n8f")
+
+[node name="Health" parent="." index="3"]
+IsFlamable = false
+
+[node name="LightOccluder2D" parent="." index="4"]
+occluder = SubResource("OccluderPolygon2D_3d0yf")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-2, -13)
+shape = SubResource("RectangleShape2D_b5138")

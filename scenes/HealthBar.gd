@@ -18,3 +18,7 @@ func set_health():
 	for i in range(0, G.Player.Health.Health):
 		var item: TextureRect = health_point_icon.instantiate();
 		add_child(item);
+	for i in range(G.Player.Health.Health, G.Player.Health.MaxHealth):
+		var item: TextureRect = health_point_icon.instantiate();
+		item.modulate = Color8(255,255,255,50)
+		add_child(item);

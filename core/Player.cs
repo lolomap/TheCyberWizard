@@ -16,6 +16,21 @@ public partial class Player : CharacterBody2D
 	public Node2D Health;
 	public float Stamina;
 	public bool IsStaminaRestoring = true;
+	
+	public bool IsControl;
+	public bool IsCreate;
+	public bool IsObject;
+	public bool IsFire;
+	public bool IsWater;
+	public bool IsMind;
+
+
+	[Export] public bool CanControl;
+	[Export] public bool CanCreate;
+	[Export] public bool CanObject;
+	[Export] public bool CanFire;
+	[Export] public bool CanWater;
+	[Export] public bool CanMind;
 
 	public enum Comnbination
 	{
@@ -47,6 +62,32 @@ public partial class Player : CharacterBody2D
 		Stamina = MaxStamina;
 		G.Instance.Player = this;
 		Health = GetNode<Node2D>("Health");
+		
+		IsControl = true;
+		Manipulation = Comnbination.Control;
+		Entity = Comnbination.Object;
+		IsObject = true;
+	}
+
+	public void ResetAspect()
+	{
+		IsObject = false;
+		IsFire = false;
+		IsWater = false;
+		IsMind = false;
+	}
+	
+	public void ResetCombination()
+	{
+		ToggleStream(false);
+		Manipulation = Comnbination.None;
+		Entity = Comnbination.None;
+
+		IsControl = false;
+		IsCreate = false;
+		ResetAspect();
+		
+		IsStaminaRestoring = true;
 	}
 
 	public override void _Process(double delta)
@@ -54,9 +95,7 @@ public partial class Player : CharacterBody2D
 		if (Stamina <= 0)
 		{
 			Stamina = 0;
-			Manipulation = Comnbination.None;
-			ToggleStream(false);
-			IsStaminaRestoring = true;
+			ResetCombination();
 		}
 
 		if (IsStaminaRestoring)
@@ -71,6 +110,10 @@ public partial class Player : CharacterBody2D
 				Animation.FlipH = false;
 			else Animation.FlipH = true;
 			Animation.Play("walk");
+		}
+		else if (!IsStaminaRestoring)
+		{
+			Animation.Play("cast");
 		}
 		else
 		{
@@ -109,19 +152,42 @@ public partial class Player : CharacterBody2D
 		base._Input(@event);
 
 		// Handle combinations
-		if (@event.IsActionReleased("manipulate_control"))
+		if (CanControl && @event.IsActionReleased("manipulate_control"))
 		{
+			ResetCombination();
+			IsControl = true;
 			Manipulation = Comnbination.Control;
-			ToggleStream(false);
 			
 		}
-		else if (@event.IsActionReleased("manipulate_create"))
+		else if (CanCreate && @event.IsActionReleased("manipulate_create"))
 		{
+			ResetCombination();
+			IsCreate = true;
 			Manipulation = Comnbination.Create;
 		}
 		else if (@event is InputEventKey eventKey && eventKey.IsReleased() && eventKey.Keycode is >= Key.Key1 and <= Key.Key5)
 		{
+			ResetAspect();
 			Entity = (Comnbination) (eventKey.Keycode - Key.Key1 + (long) Comnbination.Object);
+			switch (Entity)
+			{
+				case Comnbination.Fire:
+					if (!CanFire) Entity = Comnbination.None;
+					IsFire = true;
+					break;
+				case Comnbination.Object:
+					if (!CanObject) Entity = Comnbination.None;
+					IsObject = true;
+					break;
+				case Comnbination.Water:
+					if (!CanWater) Entity = Comnbination.None;
+					IsWater = true;
+					break;
+				case Comnbination.Mind:
+					if (!CanMind) Entity = Comnbination.None;
+					IsMind = true;
+					break;
+			}
 			
 			if (Manipulation != Comnbination.Create) return;
 			switch (Entity)

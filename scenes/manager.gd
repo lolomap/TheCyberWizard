@@ -2,10 +2,20 @@ extends Node2D
 
 @export var explosion : PackedScene;
 
+var cursor = load("res://assets/textures/cursor_1.png");
+var cursor_grab = load("res://assets/textures/cursor_2.png");
+
 signal explosion_ready(emitter)
 
 func _ready() -> void:
 	G.Manager = self;
+	Input.set_custom_mouse_cursor(cursor)
+	
+func set_cursor(grab: bool):
+	if grab:
+		Input.set_custom_mouse_cursor(cursor_grab, Input.CURSOR_DRAG);
+	else:
+		Input.set_custom_mouse_cursor(cursor)
 
 func on_explosion(emitter: Node2D, area: Rect2):
 	var e: AnimatedSprite2D = explosion.instantiate();
@@ -20,3 +30,4 @@ func on_explosion(emitter: Node2D, area: Rect2):
 func on_exposion_ready(e: AnimatedSprite2D, emitter):
 	if e.frame == 3:
 		explosion_ready.emit(emitter);
+		

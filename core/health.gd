@@ -75,6 +75,14 @@ func damage(value: float):
 		Health = 0;
 		call_deferred("on_dead");
 
+func heal(value: float):
+	if IsDead: return;
+	
+	Health += value;
+	if Health > MaxHealth:
+		Health = MaxHealth;
+	HealthChanged.emit();
+
 func on_dead():
 	IsDead = true;
 	Dead.emit();
