@@ -1,22 +1,25 @@
-[gd_scene load_steps=18 format=4 uid="uid://clemh6xrgjgfd"]
+[gd_scene load_steps=21 format=4 uid="uid://clemh6xrgjgfd"]
 
 [ext_resource type="Script" path="res://scenes/HealthBar.gd" id="1_ho2a7"]
 [ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
 [ext_resource type="PackedScene" uid="uid://hn0lp514a617" path="res://prefabs/health_point_icon.tscn" id="2_e8itl"]
+[ext_resource type="Script" path="res://scenes/progress_bar.gd" id="3_en5hx"]
+[ext_resource type="Script" path="res://scenes/layer_0.gd" id="4_ama3a"]
 [ext_resource type="PackedScene" uid="uid://068ewntd7bb8" path="res://prefabs/player.tscn" id="4_bk1f7"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_cmglu"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_ervm8"]
 [ext_resource type="Script" path="res://core/CameraPosition.gd" id="6_6hid5"]
+[ext_resource type="Script" path="res://scenes/manager.gd" id="6_iv7kg"]
+[ext_resource type="PackedScene" uid="uid://drs8525utam5s" path="res://prefabs/explosion.tscn" id="7_reyi6"]
 [ext_resource type="PackedScene" uid="uid://ca3n6givblqfb" path="res://prefabs/cyber_box.tscn" id="8_7r515"]
-[ext_resource type="PackedScene" uid="uid://byjg51mw2peml" path="res://prefabs/barrel.tscn" id="9_gg1bo"]
 [ext_resource type="PackedScene" uid="uid://byd4med0gfg83" path="res://prefabs/barrel_famaly.tscn" id="9_ud1ys"]
 [ext_resource type="PackedScene" uid="uid://bj6h7g0r7nwa0" path="res://prefabs/doors.tscn" id="10_hvrq0"]
 [ext_resource type="PackedScene" uid="uid://cvja8f7y3icj2" path="res://prefabs/flamethrower.tscn" id="10_jr4ie"]
 [ext_resource type="PackedScene" uid="uid://bqj2f687vnja2" path="res://prefabs/box.tscn" id="10_k4ugk"]
-[ext_resource type="PackedScene" uid="uid://bq2u6o6hqu0c6" path="res://prefabs/robot_flamethrower.tscn" id="12_fxclt"]
-[ext_resource type="PackedScene" uid="uid://cmahcrb6vbgtk" path="res://prefabs/robot.tscn" id="13_6a82g"]
+[ext_resource type="PackedScene" uid="uid://bfq2gujq5826w" path="res://prefabs/tesla.tscn" id="14_jh8r3"]
 [ext_resource type="PackedScene" uid="uid://olq8yv3hugq5" path="res://prefabs/generator.tscn" id="14_lcqsg"]
 [ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="14_odyla"]
+[ext_resource type="PackedScene" uid="uid://wuffmoeufly6" path="res://prefabs/button.tscn" id="15_yvafa"]
 
 [node name="Level1" type="Node2D"]
 
@@ -24,64 +27,75 @@
 
 [node name="HealthBar" type="HBoxContainer" parent="CanvasLayer"]
 offset_right = 312.0
-offset_bottom = 106.0
+offset_bottom = 60.0
 script = ExtResource("1_ho2a7")
 health_point_icon = ExtResource("2_e8itl")
 
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+modulate = Color(0, 1, 0.833333, 1)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -358.0
+offset_bottom = 27.0
+grow_horizontal = 0
+value = 100.0
+fill_mode = 1
+script = ExtResource("3_en5hx")
+
 [node name="Layer0" type="TileMapLayer" parent="."]
 use_parent_material = true
-position = Vector2(4, 15)
-tile_map_data = PackedByteArray("AAAHAAYAAQAAAAAAAAAHAAcAAQAAAAAAAAAHAAgAAQAAAAAAAAAHAAkAAQAAAAAAAAAIAAkAAQAAAAAAAAAIAAoAAQAAAAAAAAAJAAoAAQAAAAAAAAAKAAoAAQAAAAAAAAALAAoAAQAAAAAAAAALAAkAAQABAAAAAAAMAAkAAQAAAAAAAAAMAAgAAQAAAAAAAAAMAAcAAQAAAAAAAAALAAcAAQAAAAAAAAALAAYAAQAAAAAAAAAKAAYAAQABAAAAAAAKAAUAAQAAAAAAAAAJAAUAAQAAAAAAAAAJAAYAAQAAAAAAAAAIAAYAAQABAAAAAAAHAAoAAQAAAAAAAAAHAAUAAQAAAAAAAAAIAAUAAQAAAAAAAAALAAUAAQAAAAAAAAAMAAYAAQAAAAAAAAAMAAoAAQAAAAAAAAALAAgAAQAAAAAAAAAJAAgAAQACAAAAAAAIAAgAAQAAAAAAAAAJAAkAAQAAAAAAAAAIAAcAAQAAAAAAAAAKAAkAAQAAAAAAAAAMAAUAAQAAAAAAAAAJAAcAAQAAAAAAAAAKAAcAAQAAAAAAAAAKAAgAAQAAAAAAAAAGAAUAAQACAAEAAAAGAAYAAQACAAEAAAAGAAcAAQACAAEAAAAGAAgAAQACAAEAAAAGAAkAAQACAAEAAAAGAAoAAQACAAEAAAANAAUAAQABAAEAAAANAAYAAQABAAEAAAANAAcAAQABAAEAAAAHAAQAAQAAAAEAAAAIAAQAAQADAAAAAAAJAAQAAQAAAAEAAAAKAAQAAQAAAAEAAAALAAQAAQADAAAAAAAMAAQAAQAAAAEAAAAHAAsAAQADAAEAAAAIAAsAAQALAAEAAAAKAAsAAQAKAAEAAAALAAsAAQADAAEAAAAMAAsAAQADAAEAAAAGAAsAAQAEAAEAAAANAAsAAQAFAAEAAAAGAAQAAQAGAAEAAAANAAQAAQAHAAEAAAANAAgAAQABAAEAAAANAAkAAQABAAEAAAANAAoAAQABAAEAAAAIAAwAAQACAAEAAAAIAA0AAQACAAEAAAAIAA4AAQACAAEAAAAKAAwAAQABAAEAAAAKAA0AAQABAAEAAAAKAA4AAQABAAEAAAAJAA4AAQAAAAAAAAAJAAsAAQAAAAAAAAAJAAwAAQAAAAAAAAAJAA0AAQAAAAAAAAAJAA8AAQAAAAAAAAAJABAAAQAAAAAAAAAKAA8AAQABAAEAAAAIAA8AAQACAAEAAAAIABAAAQACAAEAAAAKABAAAQABAAEAAAAIABEAAQAEAAEAAAAKABEAAQAFAAEAAAAJABEAAQADAAEAAAA=")
+tile_map_data = PackedByteArray("AAAHAAYAAQAAAAAAAAAHAAcAAQAAAAAAAAAHAAgAAQAAAAAAAAAHAAkAAQAAAAAAAAAIAAkAAQAAAAAAAAAIAAoAAQAAAAAAAAAJAAoAAQAAAAAAAAAKAAoAAQAAAAAAAAALAAoAAQAAAAAAAAALAAkAAQABAAAAAAAMAAkAAQAAAAAAAAAMAAgAAQAAAAAAAAAMAAcAAQAAAAAAAAALAAcAAQAAAAAAAAALAAYAAQAAAAAAAAAKAAYAAQABAAAAAAAKAAUAAQAAAAAAAAAJAAUAAQAAAAAAAAAJAAYAAQAAAAAAAAAIAAYAAQABAAAAAAAHAAoAAQAAAAAAAAAHAAUAAQAAAAAAAAAIAAUAAQAAAAAAAAALAAUAAQAAAAAAAAAMAAYAAQAAAAAAAAAMAAoAAQAAAAAAAAALAAgAAQAAAAAAAAAJAAgAAQACAAAAAAAIAAgAAQAAAAAAAAAJAAkAAQAAAAAAAAAIAAcAAQAAAAAAAAAKAAkAAQAAAAAAAAAMAAUAAQAAAAAAAAAJAAcAAQAAAAAAAAAKAAgAAQAAAAAAAAAGAAUAAQACAAEAAAAGAAYAAQACAAEAAAAGAAcAAQACAAEAAAAGAAgAAQACAAEAAAAGAAkAAQACAAEAAAAGAAoAAQACAAEAAAANAAUAAQABAAEAAAANAAYAAQABAAEAAAANAAcAAQABAAEAAAAHAAQAAQAAAAEAAAAIAAQAAQADAAAAAAAJAAQAAQAAAAEAAAAKAAQAAQAAAAEAAAALAAQAAQADAAAAAAAMAAQAAQAAAAEAAAAHAAsAAQADAAEAAAAIAAsAAQALAAEAAAAKAAsAAQAKAAEAAAALAAsAAQADAAEAAAAMAAsAAQADAAEAAAAGAAsAAQAEAAEAAAANAAsAAQAFAAEAAAAGAAQAAQAGAAEAAAANAAQAAQAHAAEAAAANAAgAAQABAAEAAAANAAkAAQABAAEAAAANAAoAAQABAAEAAAAIAAwAAQACAAEAAAAIAA0AAQACAAEAAAAIAA4AAQACAAEAAAAKAAwAAQABAAEAAAAKAA0AAQABAAEAAAAKAA4AAQABAAEAAAAJAA4AAQAAAAAAAAAJAAsAAQAAAAAAAAAJAAwAAQAAAAAAAAAJAA0AAQAAAAAAAAAJAA8AAQAAAAAAAAAJABAAAQAAAAAAAAAKAA8AAQABAAEAAAAIAA8AAQACAAEAAAAIABAAAQACAAEAAAAKABAAAQABAAEAAAAIABEAAQAEAAEAAAAKABEAAQAFAAEAAAAJABEAAQADAAEAAAAKAAcAAQAAAAIAAAA=")
 tile_set = ExtResource("1_n6p54")
 rendering_quadrant_size = 32
+script = ExtResource("4_ama3a")
 
 [node name="Node2D" type="Node2D" parent="."]
 y_sort_enabled = true
+script = ExtResource("6_iv7kg")
+explosion = ExtResource("7_reyi6")
 
 [node name="Player" parent="Node2D" instance=ExtResource("4_bk1f7")]
-position = Vector2(313, 258)
-
-[node name="Barrel" parent="Node2D" instance=ExtResource("9_gg1bo")]
-position = Vector2(362, 281)
+position = Vector2(296, 245)
 
 [node name="BarrelFamaly" parent="Node2D" instance=ExtResource("9_ud1ys")]
 position = Vector2(266, 274)
 
 [node name="Flamethrower" parent="Node2D" instance=ExtResource("10_jr4ie")]
-position = Vector2(309, 293)
+position = Vector2(304, 280)
 
-[node name="Doors2" parent="Node2D" instance=ExtResource("10_hvrq0")]
-position = Vector2(308, 505)
+[node name="Doors2" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("10_hvrq0")]
+position = Vector2(303, 504)
 is_open = true
+connection = NodePath("../Button")
 
 [node name="Flamethrower2" parent="Node2D" instance=ExtResource("10_jr4ie")]
 position = Vector2(221, 299)
 rotation = -1.309
 
-[node name="CyberBox" parent="Node2D" instance=ExtResource("8_7r515")]
-position = Vector2(387, 252)
-
-[node name="Dude" parent="Node2D" instance=ExtResource("14_odyla")]
-position = Vector2(307, 443)
-
-[node name="Dude3" parent="Node2D" instance=ExtResource("14_odyla")]
-position = Vector2(306, 409)
-
-[node name="RobotFlamethrower" parent="Node2D" instance=ExtResource("12_fxclt")]
-position = Vector2(307, 424)
-collision_layer = 1
-collision_mask = 1
-
-[node name="Robot" parent="Node2D" instance=ExtResource("13_6a82g")]
-position = Vector2(310, 470)
-
-[node name="Generator" parent="Node2D" instance=ExtResource("14_lcqsg")]
+[node name="Generator" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("14_lcqsg")]
 position = Vector2(341, 345)
 does_enable = true
+connection = NodePath("../Tesla")
 
 [node name="Doors" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("10_hvrq0")]
-position = Vector2(308, 398)
+position = Vector2(303, 398)
 connection = NodePath("../Generator")
+
+[node name="Button" parent="Node2D" instance=ExtResource("15_yvafa")]
+position = Vector2(303, 519)
+
+[node name="CyberBox" parent="Node2D" instance=ExtResource("8_7r515")]
+position = Vector2(401, 323)
+
+[node name="Dude" parent="Node2D" instance=ExtResource("14_odyla")]
+position = Vector2(392, 246)
+
+[node name="Tesla" parent="Node2D" instance=ExtResource("14_jh8r3")]
+position = Vector2(370, 299)
+
+[node name="Box" parent="Node2D" instance=ExtResource("10_k4ugk")]
+position = Vector2(264, 215)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(310, 230)
@@ -109,6 +123,3 @@ script = ExtResource("6_6hid5")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.858824, 0.929412, 1, 1)
-
-[node name="Box" parent="." instance=ExtResource("10_k4ugk")]
-position = Vector2(275, 301)

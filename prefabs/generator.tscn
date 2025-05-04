@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://olq8yv3hugq5"]
+[gd_scene load_steps=7 format=3 uid="uid://olq8yv3hugq5"]
 
 [ext_resource type="Script" path="res://core/generator.gd" id="1_4hsva"]
-[ext_resource type="Texture2D" uid="uid://d0co34iab3jci" path="res://assets/textures/barrel.png" id="1_mdsfq"]
 [ext_resource type="SpriteFrames" uid="uid://ocondqietnq4" path="res://assets/animations/generator.tres" id="2_b4aas"]
 [ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="3_x5yvx"]
 
@@ -15,6 +14,7 @@ polygon = PackedVector2Array(-9, -20, 11, -20, 11, 0, -9, 0)
 size = Vector2(19, 35)
 
 [node name="Generator" type="RigidBody2D"]
+lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_4hsva")
@@ -23,16 +23,11 @@ script = ExtResource("1_4hsva")
 position = Vector2(0.5, -8.5)
 shape = SubResource("RectangleShape2D_5g7nd")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -8)
-texture = ExtResource("1_mdsfq")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -16)
 sprite_frames = ExtResource("2_b4aas")
 autoplay = "default"
-frame_progress = 0.178908
+frame_progress = 0.410917
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 position = Vector2(0, -4)
@@ -42,9 +37,9 @@ radius = 14.54
 occluder = SubResource("OccluderPolygon2D_82pjy")
 
 [node name="Health" parent="." instance=ExtResource("3_x5yvx")]
-MaxHealth = 3.0
+MaxHealth = 10.0
 IsElectronic = true
-FlamingPeriodSec = 0.75
+FlamingPeriodSec = 1.0
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

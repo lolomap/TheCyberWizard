@@ -1,6 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://3bekvfky7o2w"]
+[gd_resource type="SpriteFrames" load_steps=30 format=3 uid="uid://3bekvfky7o2w"]
 
 [ext_resource type="Texture2D" uid="uid://dqvyug4vts4b4" path="res://assets/soldier_attack_animation.png" id="1_nhftd"]
+[ext_resource type="Texture2D" uid="uid://bcev7jy42otbq" path="res://assets/soldier_death_animation.png" id="2_0o5tt"]
 [ext_resource type="Texture2D" uid="uid://ug7dk5oi3swa" path="res://assets/soldier_calm_animation.png" id="2_uud33"]
 [ext_resource type="Texture2D" uid="uid://cq57qwgwnfhec" path="res://assets/soldier_walk_animation.png" id="3_ml6dp"]
 
@@ -31,6 +32,26 @@ region = Rect2(70, 40, 35, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_eere6"]
 atlas = ExtResource("1_nhftd")
 region = Rect2(0, 80, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k38e"]
+atlas = ExtResource("2_0o5tt")
+region = Rect2(0, 0, 65, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxhf5"]
+atlas = ExtResource("2_0o5tt")
+region = Rect2(65, 0, 65, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qr66j"]
+atlas = ExtResource("2_0o5tt")
+region = Rect2(0, 40, 65, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqjj3"]
+atlas = ExtResource("2_0o5tt")
+region = Rect2(65, 40, 65, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0onv"]
+atlas = ExtResource("2_0o5tt")
+region = Rect2(0, 80, 65, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkvvm"]
 atlas = ExtResource("2_uud33")
@@ -110,6 +131,26 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k38e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxhf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qr66j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqjj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0onv")
+}],
+"loop": false,
+"name": &"die",
 "speed": 12.0
 }, {
 "frames": [{
