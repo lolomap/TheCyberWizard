@@ -15,8 +15,8 @@ var health: HealthComponent;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	body_entered.connect(_on_collision);
-	#if (has_node("InteractableArea")):
-	#	$InteractableArea.area_entered.connect(_on_collision_area);
+	if (has_node("InteractableArea")):
+		$InteractableArea.area_entered.connect(_on_collision_area);
 	if (has_node("Health")):
 		health = $Health;
 		health.Dead.connect(dead);
@@ -52,6 +52,7 @@ func _physics_process(delta):
 
 
 func _on_interactable_area_input(viewport, event, shape_idx):
+	G.Manager.set_cursor(event is InputEventMouseMotion);
 	if G.Player.Manipulation == 0 && G.Player.Entity == draggable_type && Input.is_action_just_pressed("Click"):
 		G.Player.IsStaminaRestoring = false;
 		selected = true;
@@ -63,10 +64,14 @@ func _input(event):
 			G.Player.IsStaminaRestoring = true;
 			selected = false;
 
+func _on_collision_area(area):
+	if health != null:
+		if area.is_in_group("Projectile") and health.IsFlamable:
+			health.is_flaming = true;
+
 func _on_collision(body: Node):
 #	_on_collision_area(body);
 	
-#func _on_collision_area(area):
 	if health != null:
 		if body.is_in_group("Projectile") and health.IsFlamable:
 			health.is_flaming = true;

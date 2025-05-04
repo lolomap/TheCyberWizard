@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c863od3u6cy8b"]
+
+[ext_resource type="Texture2D" uid="uid://cpbxytq78t3tf" path="res://assets/essence_fire.png" id="1_6be0s"]
+
+[node name="CombinationIcon" type="TextureRect"]
+texture = ExtResource("1_6be0s")

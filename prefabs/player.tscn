@@ -18,6 +18,8 @@ collision_mask = 129
 motion_mode = 1
 script = ExtResource("1_hc5m0")
 ControlStamina = 1.0
+CanControl = true
+CanObject = true
 CastStream = NodePath("CastStream")
 Animation = NodePath("AnimatedSprite2D")
 CastStreamParticles = NodePath("CastStream/GPUParticles2D")
@@ -47,9 +49,9 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -20)
 sprite_frames = ExtResource("4_j1jcr")
-animation = &"walk"
+animation = &"cast"
 autoplay = "idle"
-frame_progress = 0.0775289
+frame_progress = 0.866567
 
 [node name="CollisionMovement" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -2)

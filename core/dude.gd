@@ -35,6 +35,8 @@ func dead():
 	
 	velocity = Vector2.ZERO;
 	nav.velocity = Vector2.ZERO;
+	$CollisionShape2D.disabled = true;
+	$Hitbox/CollisionShape2D.disabled = true;
 	
 	if health.IsElectronic:
 		G.Manager.explosion_ready.connect(on_dead_ready);
