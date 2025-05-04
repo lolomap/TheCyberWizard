@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://clemh6xrgjgfd"]
+[gd_scene load_steps=21 format=4 uid="uid://clemh6xrgjgfd"]
 
 [ext_resource type="Script" path="res://scenes/HealthBar.gd" id="1_ho2a7"]
 [ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
@@ -9,10 +9,13 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_cmglu"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="5_ervm8"]
 [ext_resource type="Script" path="res://core/CameraPosition.gd" id="6_6hid5"]
+[ext_resource type="Script" path="res://scenes/manager.gd" id="6_iv7kg"]
+[ext_resource type="PackedScene" uid="uid://drs8525utam5s" path="res://prefabs/explosion.tscn" id="7_reyi6"]
 [ext_resource type="PackedScene" uid="uid://ca3n6givblqfb" path="res://prefabs/cyber_box.tscn" id="8_7r515"]
 [ext_resource type="PackedScene" uid="uid://byd4med0gfg83" path="res://prefabs/barrel_famaly.tscn" id="9_ud1ys"]
 [ext_resource type="PackedScene" uid="uid://bj6h7g0r7nwa0" path="res://prefabs/doors.tscn" id="10_hvrq0"]
 [ext_resource type="PackedScene" uid="uid://cvja8f7y3icj2" path="res://prefabs/flamethrower.tscn" id="10_jr4ie"]
+[ext_resource type="PackedScene" uid="uid://bqj2f687vnja2" path="res://prefabs/box.tscn" id="10_k4ugk"]
 [ext_resource type="PackedScene" uid="uid://bfq2gujq5826w" path="res://prefabs/tesla.tscn" id="14_jh8r3"]
 [ext_resource type="PackedScene" uid="uid://olq8yv3hugq5" path="res://prefabs/generator.tscn" id="14_lcqsg"]
 [ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="14_odyla"]
@@ -49,15 +52,17 @@ script = ExtResource("4_ama3a")
 
 [node name="Node2D" type="Node2D" parent="."]
 y_sort_enabled = true
+script = ExtResource("6_iv7kg")
+explosion = ExtResource("7_reyi6")
 
 [node name="Player" parent="Node2D" instance=ExtResource("4_bk1f7")]
-position = Vector2(376, 253)
+position = Vector2(296, 245)
 
 [node name="BarrelFamaly" parent="Node2D" instance=ExtResource("9_ud1ys")]
 position = Vector2(266, 274)
 
 [node name="Flamethrower" parent="Node2D" instance=ExtResource("10_jr4ie")]
-position = Vector2(309, 293)
+position = Vector2(304, 280)
 
 [node name="Doors2" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("10_hvrq0")]
 position = Vector2(303, 504)
@@ -84,10 +89,13 @@ position = Vector2(303, 519)
 position = Vector2(401, 323)
 
 [node name="Dude" parent="Node2D" instance=ExtResource("14_odyla")]
-position = Vector2(299, 243)
+position = Vector2(392, 246)
 
 [node name="Tesla" parent="Node2D" instance=ExtResource("14_jh8r3")]
 position = Vector2(370, 299)
+
+[node name="Box" parent="Node2D" instance=ExtResource("10_k4ugk")]
+position = Vector2(264, 215)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(310, 230)

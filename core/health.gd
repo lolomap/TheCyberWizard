@@ -62,6 +62,8 @@ func _process(delta: float) -> void:
 	pass
 
 func damage(value: float):
+	if IsDead: return;
+	
 	Health -= value;
 	HealthChanged.emit();
 	
@@ -74,4 +76,5 @@ func damage(value: float):
 		call_deferred("on_dead");
 
 func on_dead():
+	IsDead = true;
 	Dead.emit();

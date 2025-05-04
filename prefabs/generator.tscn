@@ -27,7 +27,7 @@ shape = SubResource("RectangleShape2D_5g7nd")
 position = Vector2(1, -16)
 sprite_frames = ExtResource("2_b4aas")
 autoplay = "default"
-frame_progress = 0.521234
+frame_progress = 0.410917
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
 position = Vector2(0, -4)

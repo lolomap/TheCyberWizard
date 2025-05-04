@@ -3,6 +3,7 @@ extends StaticBody2D
 var health: HealthComponent;
 var trigger: Area2D;
 var killzone: Area2D;
+var killzone_shape: CircleShape2D;
 @export var does_enable: bool;
 
 signal door_connection(value)
@@ -13,6 +14,7 @@ func _ready() -> void:
 	health = $Health;
 	trigger = $Area2D;
 	killzone = $KillZone;
+	killzone_shape = $KillZone/CollisionShape2D.shape;
 	health.Dead.connect(_on_dead);
 	trigger.area_entered.connect(on_hit);
 	killzone.area_entered.connect(on_spray);
@@ -22,10 +24,21 @@ func _ready() -> void:
 func _on_start():
 	door_connection.emit(!does_enable);
 
+var is_dying;
+func on_dead_ready(emitter):
+	if emitter == self:
+		queue_free();
+	queue_free()
 func _on_dead():
 	door_connection.emit(does_enable);
 	generator_connection.emit(false);
-	queue_free()
+	
+	if is_dying: return
+	is_dying = true;
+	
+	G.Manager.explosion_ready.connect(on_dead_ready);
+	var size = $Area2D/CollisionShape2D.shape.size;
+	G.Manager.on_explosion(self, Rect2(global_position, size));
 
 func on_hit(area: Area2D):
 	health.is_flaming = true;

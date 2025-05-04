@@ -19,8 +19,30 @@ func _ready():
 	#	$InteractableArea.area_entered.connect(_on_collision_area);
 	if (has_node("Health")):
 		health = $Health;
-		health.Dead.connect(func(): queue_free());
+		health.Dead.connect(dead);
 
+var queue_reset;
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if queue_reset:
+		state.linear_velocity = Vector2.ZERO
+		state.angular_velocity = 0
+		queue_reset = false
+
+var is_dying;
+func dead():
+	if is_dying: return
+	is_dying = true;
+	
+	if has_node("InteractableArea"):
+		queue_reset = true;
+		G.Manager.explosion_ready.connect(on_dead_ready);
+		var size = $InteractableArea/CollisionShape2D.shape.size;
+		G.Manager.on_explosion(self, Rect2(global_position, size));
+	else:
+		queue_free();
+func on_dead_ready(emitter):
+	if emitter == self:
+		queue_free();
 
 func _physics_process(delta):
 	if selected:

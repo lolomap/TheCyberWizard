@@ -11,6 +11,7 @@ public partial class Player : CharacterBody2D
 	[Export] public float CreateStamina = 10;
 	[Export] public float ControlStamina = 3;
 	[Export] public float RestoreStamina = 15;
+	[Export] public bool CanCastOnMovement;
 
 	public Node2D Health;
 	public float Stamina;
@@ -23,7 +24,6 @@ public partial class Player : CharacterBody2D
 		Object,
 		Fire,
 		Water,
-		Wind,
 		Mind,
 		None
 	}
@@ -90,10 +90,8 @@ public partial class Player : CharacterBody2D
 		
 		Vector2 velocity;
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("movement_left", "movement_right", "movement_up", "movement_down");
-		if (direction != Vector2.Zero && IsStaminaRestoring)
+		if (direction != Vector2.Zero && (CanCastOnMovement || IsStaminaRestoring))
 		{
 			velocity = direction.Normalized() * Speed * 10 * (float) delta;
 		}
@@ -134,10 +132,6 @@ public partial class Player : CharacterBody2D
 					break;
 				case Comnbination.Water:
 					CastStreamParticles.Modulate = CastStreamWaterColor;
-					ToggleStream(true);
-					break;
-				case Comnbination.Wind:
-					CastStreamParticles.Modulate = Colors.Gray;
 					ToggleStream(true);
 					break;
 				default:

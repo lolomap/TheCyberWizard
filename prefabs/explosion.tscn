@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://drs8525utam5s"]
+
+[ext_resource type="SpriteFrames" uid="uid://wgkgya5y8afv" path="res://assets/animations/explosion.tres" id="1_xjs7o"]
+
+[node name="Explosion" type="AnimatedSprite2D"]
+z_index = 2
+sprite_frames = ExtResource("1_xjs7o")
+autoplay = "default"

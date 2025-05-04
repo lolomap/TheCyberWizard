@@ -17,13 +17,23 @@ func _ready() -> void:
 	trigger.area_entered.connect(on_hit);
 	
 	call_deferred("_on_start");
-	
+
 func _on_start():
 	door_connection.emit(!does_enable);
 
+var is_dying;
+func on_dead_ready(emitter):
+	if emitter == self:
+		queue_free();
 func _on_dead():
 	_on_disable(false);
-	queue_free()
+	
+	if is_dying: return
+	is_dying = true;
+	
+	G.Manager.explosion_ready.connect(on_dead_ready);
+	var size = $Area2D/CollisionShape2D.shape.size;
+	G.Manager.on_explosion(self, Rect2(global_position, size));
 	
 func _on_disable(value):
 	if !value:
