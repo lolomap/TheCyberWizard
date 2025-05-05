@@ -21,7 +21,6 @@ func _ready():
 	nav = $NavigationAgent2D;
 	health = $Health;
 	hitbox = $Hitbox;
-	target = G.Player;
 	
 	health.Dead.connect(dead);
 	nav.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed);
@@ -75,10 +74,11 @@ func _process(delta: float) -> void:
 	
 	if is_attacking: return;
 	
-	if global_position.distance_to(target.global_position) <= ATACK_RANGE:
-		is_attacking = true;
-		anim.play("attack");
-		return;
+	if target != null:
+		if global_position.distance_to(target.global_position) <= ATACK_RANGE:
+			is_attacking = true;
+			anim.play("attack");
+			return;
 	
 	if velocity.length() > 0:
 		anim.play("walk");
@@ -92,6 +92,8 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta):
 	if health.IsDead: return;
+	if target == null:
+		return;
 	nav.target_position = target.global_position;
 	var v = global_position.direction_to(nav.get_next_path_position()).normalized() * SPEED * 50 * delta;
 	nav.velocity = v;

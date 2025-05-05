@@ -1,0 +1,110 @@
+[gd_scene load_steps=7 format=3 uid="uid://bu0gdjpwhb3ol"]
+
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_do6rc"]
+[ext_resource type="Texture2D" uid="uid://b2tc5nt0pr83g" path="res://assets/textures/background.png" id="1_u6w2k"]
+[ext_resource type="Texture2D" uid="uid://bqm1w37yrg66p" path="res://assets/textures/game_name_sprite.png" id="2_0d5ud"]
+[ext_resource type="Texture2D" uid="uid://4yqh6w7ppulx" path="res://assets/textures/menu_button.png" id="3_x2gbb"]
+[ext_resource type="Script" path="res://scenes/button.gd" id="4_wlvx7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o8hed"]
+font_size = 91
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_do6rc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_u6w2k")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 457.0
+offset_top = -2.0
+offset_right = 1149.0
+offset_bottom = 302.0
+texture = ExtResource("2_0d5ud")
+expand_mode = 5
+
+[node name="играть" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 266.0
+offset_right = 663.0
+offset_bottom = 410.391
+texture = ExtResource("3_x2gbb")
+expand_mode = 5
+metadata/_edit_group_ = true
+
+[node name="Button" type="Button" parent="играть"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+"
+flat = true
+script = ExtResource("4_wlvx7")
+
+[node name="Label" type="Label" parent="играть"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ИГРАТЬ"
+label_settings = SubResource("LabelSettings_o8hed")
+horizontal_alignment = 1
+
+[node name="пойтинах" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 437.0
+offset_right = 668.0
+offset_bottom = 581.391
+texture = ExtResource("3_x2gbb")
+expand_mode = 5
+metadata/_edit_group_ = true
+
+[node name="Button" type="Button" parent="пойтинах"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+"
+flat = true
+
+[node name="Label" type="Label" parent="пойтинах"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ПОКИНУТЬ"
+label_settings = SubResource("LabelSettings_o8hed")
+horizontal_alignment = 1
+
+[connection signal="button_up" from="играть/Button" to="играть/Button" method="_on_button_up"]
+[connection signal="button_up" from="пойтинах/Button" to="играть/Button" method="_on_button_button_up"]

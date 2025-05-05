@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://068ewntd7bb8"]
+[gd_scene load_steps=11 format=3 uid="uid://068ewntd7bb8"]
 
 [ext_resource type="Script" path="res://core/Player.cs" id="1_hc5m0"]
 [ext_resource type="Script" path="res://core/CastStream.gd" id="2_ghy4v"]
 [ext_resource type="Material" uid="uid://7v03g5qng0ep" path="res://assets/shaders/cast_stream.tres" id="3_l30tb"]
 [ext_resource type="SpriteFrames" uid="uid://dx2hg1d4sif2i" path="res://assets/animations/player.tres" id="4_j1jcr"]
 [ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="5_4mkgw"]
+[ext_resource type="AudioStream" uid="uid://bn2l01rql1dvs" path="res://assets/sounds/звук-ходьбы-гг.ogg" id="6_hdqln"]
+[ext_resource type="Script" path="res://prefabs/steps.gd" id="7_qem8m"]
+[ext_resource type="AudioStream" uid="uid://c3tg2ptmi7sp8" path="res://assets/sounds/звук удара_1.ogg" id="7_qf4pb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3mji"]
 size = Vector2(7, 6)
@@ -19,7 +22,11 @@ motion_mode = 1
 script = ExtResource("1_hc5m0")
 ControlStamina = 1.0
 CanControl = true
+CanCreate = true
 CanObject = true
+CanFire = true
+CanWater = true
+CanMind = true
 CastStream = NodePath("CastStream")
 Animation = NodePath("AnimatedSprite2D")
 CastStreamParticles = NodePath("CastStream/GPUParticles2D")
@@ -51,7 +58,7 @@ position = Vector2(0, -20)
 sprite_frames = ExtResource("4_j1jcr")
 animation = &"cast"
 autoplay = "idle"
-frame_progress = 0.866567
+frame_progress = 0.850587
 
 [node name="CollisionMovement" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -2)
@@ -67,8 +74,17 @@ position = Vector2(-0.5, 4.5)
 shape = SubResource("RectangleShape2D_3ylo4")
 
 [node name="Health" parent="." instance=ExtResource("5_4mkgw")]
-MaxHealth = 10.0
 IsFlamable = false
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="steps" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_hdqln")
+script = ExtResource("7_qem8m")
+
+[node name="damage" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_qf4pb")
 
 [connection signal="area_entered" from="CastStream/CastTrigger" to="." method="OnSprayArea"]
 [connection signal="body_entered" from="CastStream/CastTrigger" to="." method="OnSpray"]

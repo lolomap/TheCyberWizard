@@ -2,12 +2,15 @@ extends RigidBody2D;
 class_name Draggable;
 
 @export var draggable_type = 2;
-@export var kill_speed = 10;
+@export var kill_speed = 30;
+@export var is_heavy: bool = true;
+@export var enabled: bool = true;
 
-const drag_force = 20;
+const drag_force = 40;
 const rotate_back_speed = 10;
 
 var direction;
+
 
 var selected = false;
 var health: HealthComponent;
@@ -34,7 +37,6 @@ func dead():
 	is_dying = true;
 	
 	if has_node("InteractableArea"):
-		queue_reset = true;
 		G.Manager.explosion_ready.connect(on_dead_ready);
 		var size = $InteractableArea/CollisionShape2D.shape.size;
 		G.Manager.on_explosion(self, Rect2(global_position, size));
@@ -46,22 +48,28 @@ func on_dead_ready(emitter):
 
 func _physics_process(delta):
 	if selected:
-		G.Player.Stamina -= G.Player.ControlStamina * linear_velocity.length() * delta;
+		G.Player.Stamina -= G.Player.ControlStamina * linear_velocity.length() / 2 * delta;
 		apply_force(Input.get_last_mouse_velocity() * drag_force * delta);
 		#global_position = lerp(global_position, get_global_mouse_position(), drag_speed * delta);
 
 
 func _on_interactable_area_input(viewport, event, shape_idx):
+	if !enabled: return;
+	
 	G.Manager.set_cursor(event is InputEventMouseMotion);
 	if G.Player.Manipulation == 0 && G.Player.Entity == draggable_type && Input.is_action_just_pressed("Click"):
 		G.Player.IsStaminaRestoring = false;
 		selected = true;
 		
 func _input(event):
+	if !enabled: return;
+	
 	direction = get_global_mouse_position();
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			G.Player.IsStaminaRestoring = true;
+			if is_heavy:
+				queue_reset = true;
 			selected = false;
 
 func _on_collision_area(area):

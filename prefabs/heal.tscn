@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://8bvh00msrlf6"]
+
+[ext_resource type="PackedScene" uid="uid://wuffmoeufly6" path="res://prefabs/button.tscn" id="1_7t57y"]
+[ext_resource type="Texture2D" uid="uid://p7w1x21egchx" path="res://assets/textures/heal.png" id="2_wng1e"]
+
+[node name="Heal" type="Node2D"]
+
+[node name="Button3" parent="." node_paths=PackedStringArray("disable_this_object") instance=ExtResource("1_7t57y")]
+visible = false
+give_id = 4
+disable_this_object = NodePath("../Heal")
+
+[node name="Heal" type="Sprite2D" parent="."]
+texture = ExtResource("2_wng1e")

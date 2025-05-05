@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://olq8yv3hugq5"]
+[gd_scene load_steps=8 format=3 uid="uid://olq8yv3hugq5"]
 
 [ext_resource type="Script" path="res://core/generator.gd" id="1_4hsva"]
 [ext_resource type="SpriteFrames" uid="uid://ocondqietnq4" path="res://assets/animations/generator.tres" id="2_b4aas"]
 [ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="3_x5yvx"]
+[ext_resource type="AudioStream" uid="uid://djbhis3ckylaj" path="res://assets/sounds/звук генератора.ogg" id="4_j6qdy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g7nd"]
 size = Vector2(19, 17)
@@ -49,3 +50,8 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, -17.5)
 shape = SubResource("RectangleShape2D_077ey")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_j6qdy")
+autoplay = true
+max_distance = 250.0

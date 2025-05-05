@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://2cyxf6rd1evd"]
+
+[ext_resource type="PackedScene" uid="uid://byd4med0gfg83" path="res://prefabs/barrel_famaly.tscn" id="1_j7t8o"]
+[ext_resource type="Texture2D" uid="uid://werjink6ktdo" path="res://assets/textures/pedestal.png" id="2_iho7l"]
+
+[node name="pedestal" instance=ExtResource("1_j7t8o")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+disabled = true
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -4)
+texture = ExtResource("2_iho7l")

@@ -11,4 +11,5 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	flamethrower.IsEnabled = robot.anim.animation == "attack";
-	flamethrower.look_at(robot.target.global_position)
+	if robot.target != null:
+		flamethrower.look_at(robot.target.global_position)

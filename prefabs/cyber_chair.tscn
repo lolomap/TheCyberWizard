@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cth8v1tq8k7vk"]
+
+[ext_resource type="Texture2D" uid="uid://cqdmrjivx165u" path="res://assets/textures/cyber_chair.png" id="1_6gqyf"]
+[ext_resource type="PackedScene" uid="uid://byjg51mw2peml" path="res://prefabs/barrel.tscn" id="1_kt7fi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_laovn"]
+size = Vector2(14, 12)
+
+[node name="CyberChair" instance=ExtResource("1_kt7fi")]
+is_heavy = false
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_laovn")
+
+[node name="Sprite2D" parent="." index="2"]
+texture = ExtResource("1_6gqyf")

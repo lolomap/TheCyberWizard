@@ -13,7 +13,6 @@ polygon = PackedVector2Array(-7, -28, 10, -20, 11, -5, 7, 0, -8, 0, -12, -4, -13
 size = Vector2(19, 26)
 
 [node name="Robot" instance=ExtResource("1_h4a3u")]
-ATACK_RANGE = 20
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(-2, -12)

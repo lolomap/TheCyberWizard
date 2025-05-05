@@ -5,7 +5,7 @@ namespace TheCyberWizard.core;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 300.0f;
+	public const float Speed = 400.0f;
 
 	[Export] public float MaxStamina = 100;
 	[Export] public float CreateStamina = 10;
@@ -56,6 +56,9 @@ public partial class Player : CharacterBody2D
 	[Signal]
 	public delegate void UpdateHealthEventHandler(int health);
 
+	[Signal]
+	public delegate void IsWalkingEventHandler(bool value);
+    
 	public override void _Ready()
 	{
 		base._Ready();
@@ -120,6 +123,8 @@ public partial class Player : CharacterBody2D
 			Animation.Play("idle");
 		}
 	}
+
+	
 	
 	public override void _PhysicsProcess(double delta)
 	{
@@ -137,10 +142,12 @@ public partial class Player : CharacterBody2D
 		if (direction != Vector2.Zero && (CanCastOnMovement || IsStaminaRestoring))
 		{
 			velocity = direction.Normalized() * Speed * 10 * (float) delta;
+			EmitSignal(SignalName.IsWalking, true);
 		}
 		else
 		{
 			velocity = Vector2.Zero;
+			EmitSignal(SignalName.IsWalking, false);
 		}
 
 		Velocity = velocity;

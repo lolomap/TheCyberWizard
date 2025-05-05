@@ -44,9 +44,7 @@ texture = ExtResource("5_litln")
 [node name="AnimatedSprite2D" parent="." index="1"]
 position = Vector2(-5, -11)
 sprite_frames = ExtResource("2_0glkx")
-animation = &"attack"
-frame = 4
-frame_progress = 0.467127
+animation = &"idle"
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(1, -6)
