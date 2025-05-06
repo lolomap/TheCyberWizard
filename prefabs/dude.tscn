@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://lmk2fxvxxoyx"]
+[gd_scene load_steps=11 format=3 uid="uid://lmk2fxvxxoyx"]
 
 [ext_resource type="SpriteFrames" uid="uid://3bekvfky7o2w" path="res://assets/animations/dude.tres" id="1_56mv1"]
 [ext_resource type="Script" path="res://core/dude.gd" id="1_835jk"]
 [ext_resource type="PackedScene" uid="uid://542x2usubhoy" path="res://prefabs/health.tscn" id="3_c1g2s"]
 [ext_resource type="Script" path="res://prefabs/killzone.gd" id="4_ultos"]
+[ext_resource type="AudioStream" uid="uid://i3gayjsdcawh" path="res://assets/sounds/звук-шагов-бронечелика.ogg" id="5_0vucv"]
+[ext_resource type="AudioStream" uid="uid://brciebcrlk11s" path="res://assets/sounds/звук взмаха_2.ogg" id="6_k2d1u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7xgq"]
 size = Vector2(14, 10)
@@ -27,7 +29,7 @@ ATACK_RANGE = 20
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -17)
 sprite_frames = ExtResource("1_56mv1")
-animation = &"die"
+animation = &"walk"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -61,3 +63,11 @@ script = ExtResource("4_ultos")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("CircleShape2D_5yshu")
+
+[node name="walk_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_0vucv")
+max_distance = 200.0
+
+[node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_k2d1u")
+max_distance = 100.0

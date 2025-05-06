@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bq2u6o6hqu0c6"]
+[gd_scene load_steps=12 format=3 uid="uid://bq2u6o6hqu0c6"]
 
 [ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="1_i62mu"]
 [ext_resource type="SpriteFrames" uid="uid://c0h3it6mevat7" path="res://assets/animations/dude_flamethrower.tres" id="2_0glkx"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://q2ixsdcoggvx" path="res://prefabs/fireball.tscn" id="3_lhc6w"]
 [ext_resource type="Script" path="res://core/muzzle.gd" id="4_takcn"]
 [ext_resource type="Texture2D" uid="uid://chexb4p4bs4tm" path="res://assets/textures/flamethrower_drone_aim.png" id="5_litln"]
+[ext_resource type="AudioStream" uid="uid://0a8pxcgaq18n" path="res://assets/sounds/Звук передвижения роботов.ogg" id="7_f8e0j"]
+[ext_resource type="AudioStream" uid="uid://2r3w01fmgs1m" path="res://assets/sounds/звук выстрела огненным шаром.ogg" id="8_i0g8p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a1xff"]
 size = Vector2(26, 12)
@@ -25,10 +27,10 @@ ALLOW_DIRECT_ATACK = false
 [node name="Flamethrower" type="Node2D" parent="." index="0" node_paths=PackedStringArray("ThrowerRoot")]
 position = Vector2(0, -16)
 script = ExtResource("2_ly0gx")
-IsEnabled = false
 ThrowerRoot = NodePath("..")
 DefaultDirection = Vector2(1, 0)
 Fireball = ExtResource("3_lhc6w")
+isSound = false
 
 [node name="Muzzle" type="Marker2D" parent="Flamethrower" index="0" node_paths=PackedStringArray("robot", "flamethrower")]
 position = Vector2(25, 0)
@@ -66,5 +68,11 @@ collision_mask = 0
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(1, -10.75)
 shape = SubResource("RectangleShape2D_8mi63")
+
+[node name="walk_sound" parent="." index="8"]
+stream = ExtResource("7_f8e0j")
+
+[node name="attack_sound" parent="." index="9"]
+stream = ExtResource("8_i0g8p")
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="Flamethrower" method="_on_animated_sprite_2d_animation_looped"]

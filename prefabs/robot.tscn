@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmahcrb6vbgtk"]
+[gd_scene load_steps=8 format=3 uid="uid://cmahcrb6vbgtk"]
 
 [ext_resource type="PackedScene" uid="uid://lmk2fxvxxoyx" path="res://prefabs/dude.tscn" id="1_h4a3u"]
 [ext_resource type="SpriteFrames" uid="uid://qlctm4g4f4yf" path="res://assets/animations/dude_robot.tres" id="2_mtuwe"]
+[ext_resource type="AudioStream" uid="uid://0a8pxcgaq18n" path="res://assets/sounds/Звук передвижения роботов.ogg" id="3_v0u6a"]
+[ext_resource type="AudioStream" uid="uid://c4pxr8kq32s4p" path="res://assets/sounds/удар током от робота.ogg" id="4_06rqf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_siulk"]
 size = Vector2(24, 12)
@@ -33,3 +35,9 @@ occluder = SubResource("OccluderPolygon2D_efm2h")
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(0.5, -14)
 shape = SubResource("RectangleShape2D_bbylv")
+
+[node name="walk_sound" parent="." index="7"]
+stream = ExtResource("3_v0u6a")
+
+[node name="attack_sound" parent="." index="8"]
+stream = ExtResource("4_06rqf")

@@ -54,6 +54,7 @@ func direct_attack():
 	if ALLOW_DIRECT_ATACK and is_attacking:
 		target.get_node("Health").damage(1);
 		is_attacking = false;
+		
 	
 func actor_setup():
 	await get_tree().physics_frame;
@@ -78,12 +79,17 @@ func _process(delta: float) -> void:
 		if global_position.distance_to(target.global_position) <= ATACK_RANGE:
 			is_attacking = true;
 			anim.play("attack");
+			if !$attack_sound.playing:
+				$attack_sound.play()
 			return;
 	
 	if velocity.length() > 0:
 		anim.play("walk");
+		if !$walk_sound.playing:
+			$walk_sound.play()
 	else:
 		anim.play("idle");
+		$walk_sound.stop()
 		
 	if velocity.normalized().x < 0:
 		anim.flip_h = false;

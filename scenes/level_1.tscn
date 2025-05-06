@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://clemh6xrgjgfd"]
+[gd_scene load_steps=58 format=4 uid="uid://clemh6xrgjgfd"]
 
 [ext_resource type="Script" path="res://scenes/HealthBar.gd" id="1_ho2a7"]
 [ext_resource type="TileSet" uid="uid://wyb5kcm8c2fb" path="res://assets/tilesets/main.tres" id="1_n6p54"]
@@ -43,7 +43,19 @@
 [ext_resource type="PackedScene" uid="uid://8bvh00msrlf6" path="res://prefabs/heal.tscn" id="34_fykoc"]
 [ext_resource type="Texture2D" uid="uid://d36ekthf6xpmb" path="res://assets/textures/gear.png" id="35_iexhm"]
 [ext_resource type="Texture2D" uid="uid://s00tejg17w8n" path="res://assets/textures/wood_box_long.png" id="38_ydn3m"]
+[ext_resource type="Texture2D" uid="uid://bn2658igjmj3r" path="res://assets/textures/bed.png" id="39_qljxl"]
 [ext_resource type="Script" path="res://scenes/area_2d.gd" id="39_w87rd"]
+[ext_resource type="Texture2D" uid="uid://dyfdgnprihof7" path="res://assets/textures/NOWODA.png" id="43_5nypn"]
+[ext_resource type="Texture2D" uid="uid://dvybhub58f4ax" path="res://assets/textures/WODA_DANGER.png" id="44_ra267"]
+[ext_resource type="Texture2D" uid="uid://by4n1yx0etab" path="res://assets/textures/wending_machine.png" id="45_03ot8"]
+[ext_resource type="Texture2D" uid="uid://crwh7dljb6o7i" path="res://assets/textures/water_1.png" id="46_v1dm2"]
+[ext_resource type="Texture2D" uid="uid://qlv6w3kin8j6" path="res://assets/textures/table_1.png" id="47_ivcmx"]
+[ext_resource type="Texture2D" uid="uid://30aa2jkgtb7y" path="res://assets/textures/table_2.png" id="48_qm5tb"]
+[ext_resource type="Texture2D" uid="uid://cqdmrjivx165u" path="res://assets/textures/cyber_chair.png" id="49_neghu"]
+[ext_resource type="Texture2D" uid="uid://cnnvlk446q4t8" path="res://assets/textures/gun_rack.png" id="50_0wsic"]
+[ext_resource type="Texture2D" uid="uid://b52di4j5erxxl" path="res://assets/textures/stockpile_text.png" id="51_c0end"]
+[ext_resource type="Texture2D" uid="uid://bx425ushuqgbh" path="res://assets/textures/family_barrel.png" id="52_vxb5q"]
+[ext_resource type="Texture2D" uid="uid://erwb3n4f10mv" path="res://assets/textures/table_3.png" id="53_7oa7f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0k1i"]
 size = Vector2(19, 104)
@@ -141,7 +153,8 @@ script = ExtResource("6_iv7kg")
 explosion = ExtResource("7_reyi6")
 
 [node name="Player" parent="Node2D" instance=ExtResource("4_bk1f7")]
-position = Vector2(34, 339)
+position = Vector2(1124, 864)
+CanMind = false
 
 [node name="CyberBox" parent="Node2D" instance=ExtResource("8_7r515")]
 position = Vector2(12, 208)
@@ -370,7 +383,7 @@ position = Vector2(305, 925)
 position = Vector2(330, 926)
 
 [node name="CyberBox18" parent="Node2D" instance=ExtResource("8_7r515")]
-position = Vector2(331, 947)
+position = Vector2(820, 823)
 
 [node name="Box3" parent="Node2D" instance=ExtResource("10_k4ugk")]
 position = Vector2(654, 635)
@@ -426,7 +439,7 @@ position = Vector2(563, 723)
 texture = ExtResource("28_q2bq0")
 
 [node name="CyberChair6" parent="Node2D" instance=ExtResource("21_2ckes")]
-position = Vector2(575, 823)
+position = Vector2(685, 731)
 
 [node name="EssenceFire" type="Sprite2D" parent="Node2D"]
 z_index = 1
@@ -449,6 +462,7 @@ is_open = true
 
 [node name="Doors6" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("32_8ho3g")]
 position = Vector2(895, 829)
+is_open = true
 connection = NodePath("../Generator")
 
 [node name="Button4" parent="Node2D" node_paths=PackedStringArray("disable_this_object") instance=ExtResource("15_yvafa")]
@@ -556,7 +570,7 @@ position = Vector2(1009, 303)
 position = Vector2(1227, 304)
 
 [node name="Box12" parent="Node2D" instance=ExtResource("10_k4ugk")]
-position = Vector2(1103, 718)
+position = Vector2(962, 718)
 enabled = false
 
 [node name="Sprite2D" parent="Node2D/Box12" index="2"]
@@ -564,12 +578,28 @@ position = Vector2(0, -17)
 texture = ExtResource("38_ydn3m")
 
 [node name="Box13" parent="Node2D" instance=ExtResource("10_k4ugk")]
-position = Vector2(1134, 718)
+position = Vector2(997, 730)
 enabled = false
 
 [node name="Sprite2D" parent="Node2D/Box13" index="2"]
 position = Vector2(0, -18)
 texture = ExtResource("38_ydn3m")
+
+[node name="Bed" type="Sprite2D" parent="Node2D/Box13"]
+position = Vector2(-954, -387)
+texture = ExtResource("39_qljxl")
+
+[node name="Bed2" type="Sprite2D" parent="Node2D/Box13"]
+position = Vector2(-828, -387)
+texture = ExtResource("39_qljxl")
+
+[node name="Bed3" type="Sprite2D" parent="Node2D/Box13"]
+position = Vector2(-737, -389)
+texture = ExtResource("39_qljxl")
+
+[node name="Bed4" type="Sprite2D" parent="Node2D/Box13"]
+position = Vector2(-1122, -388)
+texture = ExtResource("39_qljxl")
 
 [node name="Heal7" parent="Node2D" instance=ExtResource("34_fykoc")]
 position = Vector2(1328, 107)
@@ -713,7 +743,8 @@ position = Vector2(2468, 813)
 position = Vector2(2702, 827)
 
 [node name="Doors8" parent="Node2D" node_paths=PackedStringArray("connection") instance=ExtResource("32_8ho3g")]
-position = Vector2(1594, 828)
+position = Vector2(1155, 830)
+is_open = true
 connection = NodePath("../Heal7/Button3")
 
 [node name="Box14" parent="Node2D" instance=ExtResource("10_k4ugk")]
@@ -935,9 +966,113 @@ script = ExtResource("39_w87rd")
 position = Vector2(-16, 0)
 shape = SubResource("RectangleShape2D_s0k1i")
 
+[node name="Nowoda" type="Sprite2D" parent="Node2D"]
+position = Vector2(1321, 816)
+texture = ExtResource("43_5nypn")
+
+[node name="WodaDanger" type="Sprite2D" parent="Node2D"]
+position = Vector2(1357, 815)
+texture = ExtResource("44_ra267")
+
+[node name="WendingMachine" type="Sprite2D" parent="Node2D"]
+position = Vector2(492, 604)
+texture = ExtResource("45_03ot8")
+
+[node name="WendingMachine2" type="Sprite2D" parent="Node2D"]
+position = Vector2(464, 632)
+texture = ExtResource("45_03ot8")
+
+[node name="Water1" type="Sprite2D" parent="Node2D"]
+modulate = Color(1, 1, 1, 0.545098)
+position = Vector2(1061, 848)
+texture = ExtResource("46_v1dm2")
+
+[node name="Table1" type="Sprite2D" parent="Node2D"]
+position = Vector2(-338, 974)
+texture = ExtResource("47_ivcmx")
+
+[node name="Table2" type="Sprite2D" parent="Node2D"]
+position = Vector2(-336, 816)
+texture = ExtResource("48_qm5tb")
+
+[node name="CyberChair7" type="Sprite2D" parent="Node2D"]
+position = Vector2(-340, 962)
+texture = ExtResource("49_neghu")
+
+[node name="CyberChair8" type="Sprite2D" parent="Node2D"]
+position = Vector2(-332, 807)
+texture = ExtResource("49_neghu")
+
+[node name="GunRack" type="Sprite2D" parent="Node2D"]
+position = Vector2(-39, 759)
+texture = ExtResource("50_0wsic")
+
+[node name="GunRack2" type="Sprite2D" parent="Node2D"]
+position = Vector2(4, 759)
+texture = ExtResource("50_0wsic")
+
+[node name="GunRack3" type="Sprite2D" parent="Node2D"]
+position = Vector2(-223, 758)
+texture = ExtResource("50_0wsic")
+
+[node name="GunRack4" type="Sprite2D" parent="Node2D"]
+position = Vector2(-261, 758)
+texture = ExtResource("50_0wsic")
+
+[node name="StockpileText" type="Sprite2D" parent="Node2D"]
+position = Vector2(158, 817)
+texture = ExtResource("51_c0end")
+
+[node name="FamilyBarrel" type="Sprite2D" parent="Node2D"]
+position = Vector2(458, 1698)
+texture = ExtResource("52_vxb5q")
+
+[node name="FamilyBarrel2" type="Sprite2D" parent="Node2D"]
+position = Vector2(693, 1778)
+texture = ExtResource("52_vxb5q")
+
+[node name="Table3" type="Sprite2D" parent="Node2D"]
+position = Vector2(465, 1761)
+texture = ExtResource("53_7oa7f")
+
+[node name="Table4" type="Sprite2D" parent="Node2D"]
+position = Vector2(686, 1761)
+texture = ExtResource("53_7oa7f")
+
+[node name="CyberChair9" type="Sprite2D" parent="Node2D"]
+position = Vector2(464, 1745)
+texture = ExtResource("49_neghu")
+
+[node name="CyberChair10" type="Sprite2D" parent="Node2D"]
+position = Vector2(694, 1747)
+texture = ExtResource("49_neghu")
+
+[node name="GunRack5" type="Sprite2D" parent="Node2D"]
+position = Vector2(1405, 823)
+texture = ExtResource("50_0wsic")
+
+[node name="GunRack6" type="Sprite2D" parent="Node2D"]
+position = Vector2(1245, 823)
+texture = ExtResource("50_0wsic")
+
+[node name="Nowoda2" type="Sprite2D" parent="Node2D"]
+position = Vector2(1519, 817)
+rotation = -0.261799
+scale = Vector2(0.83173, 1.43302)
+texture = ExtResource("43_5nypn")
+
+[node name="WodaDanger2" type="Sprite2D" parent="Node2D"]
+position = Vector2(1550, 817)
+rotation = 0.261799
+texture = ExtResource("44_ra267")
+
+[node name="WendingMachine3" type="Sprite2D" parent="Node2D"]
+position = Vector2(1214, 824)
+texture = ExtResource("45_03ot8")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(310, 230)
-zoom = Vector2(3, 3)
+zoom = Vector2(3.5, 3.5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 script = ExtResource("4_cmglu")
@@ -946,7 +1081,7 @@ script = ExtResource("4_cmglu")
 position = Vector2(310, 230)
 script = ExtResource("5_ervm8")
 priority = 0
-zoom = Vector2(3, 3)
+zoom = Vector2(3.5, 3.5)
 follow_mode = 1
 follow_target = NodePath("../CameraPosition")
 follow_parameters/damping = true
@@ -971,10 +1106,16 @@ color = Color(0.858824, 0.929412, 1, 1)
 [editable path="Node2D/Bars7"]
 [editable path="Node2D/Bars8"]
 [editable path="Node2D/Heal4"]
+[editable path="Node2D/Heal4/Button3"]
 [editable path="Node2D/Heal5"]
+[editable path="Node2D/Heal5/Button3"]
 [editable path="Node2D/Heal6"]
+[editable path="Node2D/Heal6/Button3"]
 [editable path="Node2D/Box12"]
 [editable path="Node2D/Box13"]
 [editable path="Node2D/Heal7"]
+[editable path="Node2D/Heal7/Button3"]
 [editable path="Node2D/Heal7/Heal2"]
+[editable path="Node2D/Heal7/Heal2/Button3"]
 [editable path="Node2D/Heal7/Heal3"]
+[editable path="Node2D/Heal7/Heal3/Button3"]

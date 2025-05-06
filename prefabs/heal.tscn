@@ -12,3 +12,5 @@ disable_this_object = NodePath("../Heal")
 
 [node name="Heal" type="Sprite2D" parent="."]
 texture = ExtResource("2_wng1e")
+
+[editable path="Button3"]

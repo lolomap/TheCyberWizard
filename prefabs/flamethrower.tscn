@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvja8f7y3icj2"]
+[gd_scene load_steps=6 format=3 uid="uid://cvja8f7y3icj2"]
 
 [ext_resource type="SpriteFrames" uid="uid://c6fjjlxm2y1hi" path="res://assets/animations/flamethrower.tres" id="1_ff4rs"]
 [ext_resource type="Script" path="res://core/flamethrower.gd" id="1_sgt24"]
 [ext_resource type="PackedScene" uid="uid://q2ixsdcoggvx" path="res://prefabs/fireball.tscn" id="2_3jqbo"]
+[ext_resource type="AudioStream" uid="uid://2r3w01fmgs1m" path="res://assets/sounds/звук выстрела огненным шаром.ogg" id="4_7vnf3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7c6j8"]
 size = Vector2(4, 20)
@@ -27,5 +28,9 @@ shape = SubResource("RectangleShape2D_7c6j8")
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(0, 24)
 rotation = 1.5708
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_7vnf3")
+max_distance = 150.0
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
